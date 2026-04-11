@@ -1,0 +1,1 @@
+# Análise sentimental de resenhas de filmes
