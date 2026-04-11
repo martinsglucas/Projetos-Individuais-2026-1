@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Guilherme/UnB/Sistemas-ML/Projeto-2/projeto-individual-2/sentimental-analysis-on-movie-reviews/mlruns/592266475915424271/29fd6e6f4e8848238fb5420fe901105a/artifacts
+end_time: 1775940105255
+entry_point_name: ''
+experiment_id: '592266475915424271'
+lifecycle_stage: active
+run_id: 29fd6e6f4e8848238fb5420fe901105a
+run_name: sample-500_bs-8_maxlen-512
+run_uuid: 29fd6e6f4e8848238fb5420fe901105a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1775940036800
+status: 3
+tags: []
+user_id: Guilherme

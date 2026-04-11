@@ -1,0 +1,31 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.transformers
+    python_version: 3.12.10
+  transformers:
+    code: null
+    components:
+    - tokenizer
+    framework: pt
+    instance_type: TextClassificationPipeline
+    model_binary: model
+    pipeline_model_type: DistilBertForSequenceClassification
+    source_model_name: distilbert/distilbert-base-uncased-finetuned-sst-2-english
+    task: text-classification
+    tokenizer_type: DistilBertTokenizerFast
+    torch_dtype: torch.float32
+    transformers_version: 4.40.0
+mlflow_version: 2.12.1
+model_size_bytes: 268788871
+model_uuid: 5da5c2adf6214c61ace259f6a8ce2605
+run_id: 29fd6e6f4e8848238fb5420fe901105a
+signature:
+  inputs: '[{"type": "string", "required": true}]'
+  outputs: '[{"type": "string", "name": "label", "required": true}, {"type": "double",
+    "name": "score", "required": true}]'
+  params: null
+utc_time_created: '2026-04-11 20:41:40.891900'

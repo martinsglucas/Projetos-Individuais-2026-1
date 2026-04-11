@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1775940105234
+current_stage: None
+description: null
+last_updated_timestamp: 1775940105234
+name: sentiment-imdb
+run_id: 29fd6e6f4e8848238fb5420fe901105a
+run_link: null
+source: file:///C:/Users/Guilherme/UnB/Sistemas-ML/Projeto-2/projeto-individual-2/sentimental-analysis-on-movie-reviews/mlruns/592266475915424271/29fd6e6f4e8848238fb5420fe901105a/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///C:/Users/Guilherme/UnB/Sistemas-ML/Projeto-2/projeto-individual-2/sentimental-analysis-on-movie-reviews/mlruns/592266475915424271/29fd6e6f4e8848238fb5420fe901105a/artifacts/model
+user_id: null
+version: 1
