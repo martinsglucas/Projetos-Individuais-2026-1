@@ -24,7 +24,7 @@ A escolha do aclImdb como dataset de avaliação é direta: é um benchmark púb
 ### 2.2 Dataset
 
 | Item | Descrição |
-||--|
+|--|--|
 | **Nome do dataset** | Stanford Large Movie Review Dataset (aclImdb) |
 | **Fonte** | Disco local (aclImdb baixado manualmente) |
 | **Tamanho** | 25.000 resenhas no split de teste, balanceado (12.500 positivas / 12.500 negativas) |
@@ -34,7 +34,7 @@ A escolha do aclImdb como dataset de avaliação é direta: é um benchmark púb
 ### 2.3 Modelo pré-treinado
 
 | Item | Descrição |
-||--|
+|--|--|
 | **Nome do modelo** | `distilbert/distilbert-base-uncased-finetuned-sst-2-english` |
 | **Fonte** (ex: Hugging Face) | HuggingFace Model Hub |
 | **Tipo** (ex: classificação, NLP) | Classificação de texto / NLP |
@@ -126,6 +126,8 @@ sentimental-analysis-on-movie-reviews/
 ### 5.1 Rastreamento de experimentos
 
 O MLflow é utilizado para registrar cada execução do pipeline dentro do experimento `sentiment-imdb`. Os parâmetros são logados no início da run, antes da inferência começar, de modo que um crash intermediário ainda preserva o contexto da execução.
+
+![MLflow UI mostrando os runs registrados](./assets/runs.png)
 
 - **Parâmetros registrados:** `data_dir`, `split`, `sample_size`, `batch_size`, `max_length`, `random_seed`, `model_name`, `preprocess_version`
 - **Métricas registradas:** `accuracy`, `precision`, `recall`, `f1`
