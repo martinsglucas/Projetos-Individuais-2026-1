@@ -15,6 +15,7 @@ from pathlib import Path
 
 import mlflow
 import mlflow.transformers  # noqa: F401  (registers the transformers flavor)
+from mlflow.data import from_pandas
 import pandas as pd
 from sklearn.metrics import classification_report, confusion_matrix
 
@@ -122,6 +123,19 @@ def run_with_tracking(args: argparse.Namespace) -> PipelineResult:
 
         mlflow.log_metrics(result.metrics)
         _log_artifacts(result)
+
+        df = pd.DataFrame({
+            "text": result.texts,
+            "label": result.true_labels
+        })
+
+        dataset = from_pandas(
+            df,
+            source=str(args.data_dir),
+            name=f"imdb-{args.split}"
+        )
+
+        mlflow.log_input(dataset, context="evaluation")
 
         if args.register_model:
             _register_model(result)
