@@ -105,7 +105,6 @@ A API FastAPI (`src/api.py`) consome o modelo registrado no MLflow Model Registr
 | Idioma nao ingles | `non_english_review` | 422 |
 | Excede 512 tokens | `review_too_long` | 422 |
 
-A analise completa de guardrails, incluindo avaliacao de thresholds de confianca, esta em [`GUARDRAILS.md`](./GUARDRAILS.md).
 
 ### Exemplos de uso
 
@@ -136,5 +135,4 @@ curl.exe -i -X POST "http://127.0.0.1:8000/predict" `
 ## Documentacao
 
 - [`EXPERIMENTS.md`](./EXPERIMENTS.md) -- plano experimental com justificativas
-- [`GUARDRAILS.md`](./GUARDRAILS.md) -- analise de guardrails e thresholds
 - [`relatorio-entrega.md`](./relatorio-entrega.md) -- relatorio tecnico de entrega
