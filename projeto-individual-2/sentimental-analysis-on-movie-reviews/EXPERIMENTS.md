@@ -1,27 +1,30 @@
-# Experiments — IMDb Sentiment Analysis
+# Experimentos — Análise de Sentimento no IMDb
 
-This document defines the MLflow tracking runs that satisfy ACTION.md Stage 4 ("Run Multiple Experiments"). Every run here is launched via `src/pipeline.py` with the `--track` flag, so all runs land in the same MLflow experiment (`sentiment-imdb`) and can be compared side-by-side in the UI.
+Este documento define as execuções rastreadas no MLflow que atendem à Etapa 4 do `ACTION.md` ("Run Multiple Experiments"). Todas as execuções aqui são iniciadas via `src/pipeline.py` com a flag `--track`, portanto todos os runs entram no mesmo experimento do MLflow (`sentiment-imdb`) e podem ser comparados lado a lado na interface.
 
-**Prerequisites**
-- Milestone 3 verified: `mlflow.transformers.log_model` works (torchvision installed) and a test registration has succeeded at least once
-- `mlruns/` wiped clean before running the sweep (see "Recommended execution order" below), so the experiment contains only the runs listed here
+**Pré-requisitos**
 
-**Fixed params across all experiments**
-- `--data-dir data/raw/aclImdb` (default)
-- `--split test` (default — the `train` split is the same size and equally unseen by the SST-2-finetuned model)
-- `--batch-size 8` (default — inference batch size does not affect metric values, only wall time)
+- Marco 3 verificado: `mlflow.transformers.log_model` funciona (`torchvision` instalado) e pelo menos um registro de teste foi concluído com sucesso.
+- `mlruns/` limpo antes de executar a bateria de experimentos (ver "Ordem recomendada de execução" abaixo), para que o experimento contenha apenas os runs listados aqui.
 
-**Varied params**
-- `--sample-size` — stability dimension
-- `--max-length` — truncation dimension
-- `--random-seed` — variance dimension
-- `--register-model` — only on the blessed baseline run
+**Parâmetros fixos em todos os experimentos**
+
+- `--data-dir data/raw/aclImdb` (padrão)
+- `--split test` (padrão — o split `train` tem o mesmo tamanho e também é não visto pelo modelo ajustado no SST-2)
+- `--batch-size 8` (padrão — o tamanho do batch de inferência não afeta os valores das métricas, apenas o tempo de execução)
+
+**Parâmetros variados**
+
+- `--sample-size` — dimensão de estabilidade
+- `--max-length` — dimensão de truncamento
+- `--random-seed` — dimensão de variância
+- `--register-model` — usado apenas no run baseline escolhido
 
 ---
 
-## Dimension 1 — Stability sweep (`--sample-size`)
+## Dimensão 1 — Varredura de estabilidade (`--sample-size`)
 
-**Why this dimension matters.** Evaluating on 100 samples vs 1000 samples gives you the same pipeline but a statistically different measurement. Small-sample metrics bounce around by several percentage points run-to-run simply because of which reviews happened to be drawn; large-sample metrics converge to a stable value. This sweep answers: *"At what sample size can we trust the reported number?"* — which is both a legitimate engineering question and the justification for whatever sample size the final report ends up quoting.
+**Por que esta dimensão importa.** Avaliar em 100 amostras versus 1.000 amostras usa o mesmo pipeline, mas produz uma medição estatisticamente diferente. Métricas em amostras pequenas oscilam alguns pontos percentuais de um run para outro simplesmente por causa das resenhas sorteadas; métricas em amostras maiores convergem para um valor mais estável. Esta varredura responde: *"Com qual tamanho de amostra podemos confiar no número reportado?"* — uma pergunta de engenharia legítima e também a justificativa para o tamanho de amostra citado no relatório final.
 
 ### Exp-01 — size-100
 
@@ -29,7 +32,7 @@ This document defines the MLflow tracking runs that satisfy ACTION.md Stage 4 ("
 python -m src.pipeline --sample-size 100 --track --run-name "size-100"
 ```
 
-**Why:** The noisy end of the spectrum. Expect metrics to differ by ~2–3 percentage points from the larger-sample runs. This run establishes *how noisy* small samples are, which in turn justifies why we bothered running the larger ones.
+**Por quê:** É o extremo mais ruidoso da comparação. Espera-se que as métricas difiram em torno de 2 a 3 pontos percentuais em relação aos runs com amostras maiores. Esse run estabelece *quão ruidosas* são amostras pequenas, o que justifica a execução dos tamanhos maiores.
 
 ### Exp-02 — size-250
 
@@ -37,7 +40,7 @@ python -m src.pipeline --sample-size 100 --track --run-name "size-100"
 python -m src.pipeline --sample-size 250 --track --run-name "size-250"
 ```
 
-**Why:** An intermediate point. If accuracy on 250 samples already lines up with the 500 and 1000 runs, that tells us 250 is enough for fast iteration; if it still diverges, we learn that 500 is the real threshold. Either answer is useful.
+**Por quê:** É um ponto intermediário. Se a acurácia em 250 amostras já se alinhar aos runs de 500 e 1.000, isso indica que 250 é suficiente para iteração rápida; se ainda divergir, aprendemos que 500 é o limiar mais adequado. Qualquer um dos resultados é útil.
 
 ### Exp-03 — size-500
 
@@ -45,23 +48,23 @@ python -m src.pipeline --sample-size 250 --track --run-name "size-250"
 python -m src.pipeline --sample-size 500 --track --run-name "size-500"
 ```
 
-**Why:** The "probably stable" midpoint. Also doubles as the `random_seed=42` anchor for Dimension 3 (variance check) — we compare its metrics against the seed-43 and seed-44 runs at the same sample size.
+**Por quê:** É o ponto médio "provavelmente estável". Também funciona como âncora com `random_seed=42` para a Dimensão 3 (verificação de variância), pois suas métricas são comparadas com os runs `seed-43` e `seed-44` usando o mesmo tamanho de amostra.
 
-### Exp-04 — baseline-1000 (registered)
+### Exp-04 — baseline-1000 (registrado)
 
 ```bash
 python -m src.pipeline --sample-size 1000 --track --register-model --run-name "baseline-1000"
 ```
 
-**Why:** The stable endpoint of the size sweep — by 1000 samples the measurement noise is negligible and we have a number we're confident enough to ship. This is also the **one run that registers a model version** in the `sentiment-imdb` Model Registry (via `--register-model`), because registering every run would clutter the registry with dev iterations. Picking the largest-sample run as the blessed version means the shipped model is associated with the most statistically reliable metric. This run produces the ~268MB `model.safetensors` in its artifact directory.
+**Por quê:** É o ponto mais estável da varredura de tamanho de amostra — com 1.000 amostras, o ruído de medição já é baixo o suficiente para reportarmos o número com confiança. Este também é o **único run que registra uma versão do modelo** no Model Registry como `sentiment-imdb` (via `--register-model`), porque registrar todos os runs poluiria o registry com iterações de desenvolvimento. Escolher o run de maior amostra como versão oficial associa o modelo entregue à métrica estatisticamente mais confiável. Esse run produz o arquivo `model.safetensors` de aproximadamente 268 MB em seu diretório de artefatos.
 
 ---
 
-## Dimension 2 — Truncation sweep (`--max-length`)
+## Dimensão 2 — Varredura de truncamento (`--max-length`)
 
-**Why this dimension matters.** DistilBERT has a hard architectural cap at 512 tokens, and IMDb reviews routinely exceed that. The pipeline's default is 512, which means long reviews are silently truncated at the end — potentially dropping the most sentiment-laden passage, since reviewers often save their verdict for the last paragraph. This sweep quantifies *how much accuracy we lose by cutting inputs short*, which directly maps to the "truncation strategy" design decision ACTION.md Stage 1 locked in and the "real limitations" the report has to acknowledge in Stage 8.
+**Por que esta dimensão importa.** O DistilBERT tem um limite arquitetural rígido de 512 tokens, e resenhas do IMDb frequentemente ultrapassam esse tamanho. O padrão do pipeline é 512, o que significa que resenhas longas são truncadas silenciosamente no final — potencialmente removendo o trecho mais carregado de sentimento, já que muitos usuários deixam o veredito para o último parágrafo. Esta varredura quantifica *quanta acurácia perdemos ao cortar entradas mais cedo*, o que se conecta diretamente à decisão de "estratégia de truncamento" definida na Etapa 1 do `ACTION.md` e às limitações reais que o relatório precisa reconhecer na Etapa 8.
 
-All three runs in this dimension use `--sample-size 500` to isolate the max-length effect from the stability effect. The max-length=512 point of comparison is already covered by **Exp-03** (`size-500`), so we only need two new runs.
+Os três runs desta dimensão usam `--sample-size 500` para isolar o efeito de `max_length` do efeito de estabilidade. O ponto de comparação com `max_length=512` já está coberto pelo **Exp-03** (`size-500`), então são necessários apenas dois novos runs.
 
 ### Exp-05 — maxlen-128
 
@@ -69,7 +72,7 @@ All three runs in this dimension use `--sample-size 500` to isolate the max-leng
 python -m src.pipeline --sample-size 500 --max-length 128 --track --run-name "maxlen-128"
 ```
 
-**Why:** The aggressive truncation extreme. 128 tokens is roughly the first 100 words of a review — enough to set up the topic, rarely enough to capture the verdict. Expect a visible accuracy drop vs. the 512 baseline. This run produces the most dramatic evidence that truncation matters.
+**Por quê:** É o extremo de truncamento agressivo. 128 tokens correspondem aproximadamente às primeiras 100 palavras de uma resenha — o suficiente para introduzir o assunto, mas raramente suficiente para capturar o veredito. Espera-se uma queda visível de acurácia em relação ao baseline de 512 tokens. Esse run produz a evidência mais forte de que o truncamento importa.
 
 ### Exp-06 — maxlen-256
 
@@ -77,15 +80,15 @@ python -m src.pipeline --sample-size 500 --max-length 128 --track --run-name "ma
 python -m src.pipeline --sample-size 500 --max-length 256 --track --run-name "maxlen-256"
 ```
 
-**Why:** A middle point. If accuracy at 256 is close to 512, we learn that the marginal return from the last 256 tokens is small — interesting because it means the model is mostly making its decision from the first half of the review. If it's closer to the 128 run, we learn the opposite. Either way, the shape of the three-point curve (128 → 256 → 512) is the finding.
+**Por quê:** É um ponto intermediário. Se a acurácia em 256 ficar próxima da de 512, aprendemos que o ganho marginal dos últimos 256 tokens é pequeno — interessante porque indicaria que o modelo decide majoritariamente a partir da primeira metade da resenha. Se ficar mais próxima do run de 128, aprendemos o oposto. Em ambos os casos, o formato da curva em três pontos (128 -> 256 -> 512) é o resultado relevante.
 
 ---
 
-## Dimension 3 — Variance check (`--random-seed`)
+## Dimensão 3 — Verificação de variância (`--random-seed`)
 
-**Why this dimension matters.** Every metric we report is a *single measurement*. Running the same pipeline with a different random seed draws a different 500-sample subset from the 25,000-review test set, and the metrics will differ slightly — not because the model changed, but because the sample did. This sweep measures that inherent noise. If metrics vary by ~0.2% across seeds, we can report our numbers with confidence; if they vary by ~2%, we know the reported number has a wide error bar and should be framed accordingly. This is the difference between "our accuracy is 0.89" and "our accuracy is 0.89 ± 0.01."
+**Por que esta dimensão importa.** Toda métrica reportada é uma *medição única*. Executar o mesmo pipeline com uma semente aleatória diferente sorteia um subconjunto diferente de 500 resenhas dentro das 25.000 resenhas do split de teste, e as métricas podem mudar levemente — não porque o modelo mudou, mas porque a amostra mudou. Esta varredura mede esse ruído inerente. Se as métricas variarem cerca de 0,2% entre sementes, podemos reportar os números com confiança; se variarem cerca de 2%, sabemos que o número reportado tem uma margem de erro maior e deve ser apresentado com essa ressalva. Essa é a diferença entre dizer "nossa acurácia é 0,89" e "nossa acurácia é 0,89 ± 0,01".
 
-All three runs in this dimension fix `--sample-size 500` and vary only the seed. The `seed=42` point of comparison is already covered by **Exp-03** (`size-500`), so we only need two new runs.
+Os três runs desta dimensão fixam `--sample-size 500` e variam apenas a semente. O ponto de comparação com `seed=42` já está coberto pelo **Exp-03** (`size-500`), então são necessários apenas dois novos runs.
 
 ### Exp-07 — seed-43
 
@@ -93,7 +96,7 @@ All three runs in this dimension fix `--sample-size 500` and vary only the seed.
 python -m src.pipeline --sample-size 500 --random-seed 43 --track --run-name "seed-43"
 ```
 
-**Why:** A second draw of 500 reviews from the same test set. Should produce metrics within a small tolerance of Exp-03; the gap quantifies single-run noise.
+**Por quê:** É uma segunda amostra de 500 resenhas do mesmo split de teste. Deve produzir métricas dentro de uma pequena tolerância em relação ao Exp-03; a diferença quantifica o ruído de uma execução individual.
 
 ### Exp-08 — seed-44
 
@@ -101,45 +104,47 @@ python -m src.pipeline --sample-size 500 --random-seed 43 --track --run-name "se
 python -m src.pipeline --sample-size 500 --random-seed 44 --track --run-name "seed-44"
 ```
 
-**Why:** A third draw. Three points (seed 42, 43, 44) let us compute a small range/standard-deviation of the metric and report it as an error bar, which is a sharper statement than a single point estimate.
+**Por quê:** É uma terceira amostra. Três pontos (seed 42, 43 e 44) permitem calcular uma pequena faixa ou desvio padrão da métrica e reportá-la como margem de erro, o que é mais informativo do que apresentar apenas um ponto estimado.
 
 ---
 
-## Recommended execution order
+## Ordem recomendada de execução
 
-Run in roughly increasing wall-time order so that if something breaks you lose the fast runs first, not the slow one:
+Execute em ordem aproximadamente crescente de tempo de execução para que, se algo quebrar, os runs rápidos sejam perdidos primeiro, não o mais lento:
 
-1. **Exp-01** (size-100) — smallest, fastest, ~30s
-2. **Exp-05** (maxlen-128, size 500) — truncation amplifies speed slightly
+1. **Exp-01** (size-100) — menor, mais rápido, aproximadamente 30s
+2. **Exp-05** (maxlen-128, size 500) — o truncamento reduz um pouco o tempo
 3. **Exp-06** (maxlen-256, size 500)
 4. **Exp-02** (size-250)
 5. **Exp-07** (seed-43, size 500)
 6. **Exp-08** (seed-44, size 500)
-7. **Exp-03** (size-500) — note this run is both the size=500 and seed=42 baseline
-8. **Exp-04** (baseline-1000, registered) — slowest; ~1000-sample inference + ~268MB model serialization
+7. **Exp-03** (size-500) — este run é ao mesmo tempo o baseline de size=500 e seed=42
+8. **Exp-04** (baseline-1000, registrado) — mais lento; inferência em ~1.000 amostras + serialização de ~268 MB do modelo
 
-After Exp-04 completes, `mlflow ui` should show:
-- One experiment (`sentiment-imdb`) containing 8 runs
-- One registered model (`sentiment-imdb`) with Version 1 linked to Exp-04
-- Compare view across any selection of runs showing params and metrics side-by-side
+Após a conclusão do Exp-04, `mlflow ui` deve mostrar:
+
+- Um experimento (`sentiment-imdb`) contendo 8 runs
+- Um modelo registrado (`sentiment-imdb`) com a Versão 1 vinculada ao Exp-04
+- Uma visão de comparação entre quaisquer runs selecionados, mostrando parâmetros e métricas lado a lado
 
 ---
 
-## Summary table
+## Tabela-resumo
 
-| ID     | Run name       | Dimension   | Sample size | Max length | Seed | Registered? |
-|--------|----------------|-------------|-------------|------------|------|-------------|
-| Exp-01 | `size-100`     | Stability   | 100         | 512        | 42   | No          |
-| Exp-02 | `size-250`     | Stability   | 250         | 512        | 42   | No          |
-| Exp-03 | `size-500`     | Stability   | 500         | 512        | 42   | No          |
-| Exp-04 | `baseline-1000`| Stability   | 1000        | 512        | 42   | **Yes**     |
-| Exp-05 | `maxlen-128`   | Truncation  | 500         | 128        | 42   | No          |
-| Exp-06 | `maxlen-256`   | Truncation  | 500         | 256        | 42   | No          |
-| Exp-07 | `seed-43`      | Variance    | 500         | 512        | 43   | No          |
-| Exp-08 | `seed-44`      | Variance    | 500         | 512        | 44   | No          |
+| ID     | Nome do run     | Dimensão      | Tamanho da amostra | Max length | Seed | Registrado? |
+|--------|-----------------|---------------|--------------------|------------|------|-------------|
+| Exp-01 | `size-100`      | Estabilidade  | 100                | 512        | 42   | Não         |
+| Exp-02 | `size-250`      | Estabilidade  | 250                | 512        | 42   | Não         |
+| Exp-03 | `size-500`      | Estabilidade  | 500                | 512        | 42   | Não         |
+| Exp-04 | `baseline-1000` | Estabilidade  | 1000               | 512        | 42   | **Sim**     |
+| Exp-05 | `maxlen-128`    | Truncamento   | 500                | 128        | 42   | Não         |
+| Exp-06 | `maxlen-256`    | Truncamento   | 500                | 256        | 42   | Não         |
+| Exp-07 | `seed-43`       | Variância     | 500                | 512        | 43   | Não         |
+| Exp-08 | `seed-44`       | Variância     | 500                | 512        | 44   | Não         |
 
-**Shared anchors (avoids duplicate runs):**
-- Exp-03 (`size-500`) is the `max-length=512` point of the truncation sweep → compare against Exp-05 and Exp-06
-- Exp-03 (`size-500`) is also the `seed=42` point of the variance sweep → compare against Exp-07 and Exp-08
+**Âncoras compartilhadas (evitam runs duplicados):**
 
-**Total runs:** 8 tracked, 1 registered model version.
+- Exp-03 (`size-500`) é o ponto `max-length=512` da varredura de truncamento -> comparar com Exp-05 e Exp-06
+- Exp-03 (`size-500`) também é o ponto `seed=42` da varredura de variância -> comparar com Exp-07 e Exp-08
+
+**Total de runs:** 8 rastreados, 1 versão de modelo registrada.

@@ -1,7 +1,7 @@
 # Relatório de Entrega — Projeto Individual 2: Sistema de ML com MLflow
 
 > **Aluno(a):** Guilherme Westphall, Lucas Martins Gabriel, Leonardo Padre
-> **Matrícula:** 211061805, 221022088, XXXXXXX
+> **Matrícula:** 211061805, 221022088, 200067036
 > **Data de entrega:** 15/04/2026
 
 ---
@@ -99,6 +99,8 @@ aclImdb (disco)
 sentimental-analysis-on-movie-reviews/
 ├── src/
 │   ├── __init__.py
+│   ├── api.py
+│   ├── guardrails.py
 │   ├── pipeline.py
 │   ├── tracking.py
 │   ├── data/
@@ -127,7 +129,7 @@ sentimental-analysis-on-movie-reviews/
 
 O MLflow é utilizado para registrar cada execução do pipeline dentro do experimento `sentiment-imdb`. Os parâmetros são logados no início da run, antes da inferência começar, de modo que um crash intermediário ainda preserva o contexto da execução.
 
-![MLflow UI mostrando os runs registrados](./assets/runs.png)
+O planejamento detalhado dos oito experimentos, incluindo justificativa de cada dimensão avaliada, comandos de execução e tabela-resumo dos runs, está documentado em [`EXPERIMENTS.md`](./EXPERIMENTS.md). Esta seção do relatório resume os resultados e evidências desse plano experimental.
 
 - **Parâmetros registrados:** `data_dir`, `split`, `sample_size`, `batch_size`, `max_length`, `random_seed`, `model_name`, `preprocess_version`
 - **Métricas registradas:** `accuracy`, `precision`, `recall`, `f1`
@@ -137,25 +139,136 @@ O MLflow é utilizado para registrar cada execução do pipeline dentro do exper
 
 O modelo é serializado e registrado no MLflow Model Registry via `mlflow.transformers.log_model` com `registered_model_name="sentiment-imdb"`. A versão 1 foi registrada a partir do exp-04 (baseline de 1.000 amostras, acurácia 0,900). O backend de artefatos é file-based local, armazenado em `mlruns/` na raiz do projeto e versionado junto com o código no git.
 
+O versionamento do projeto cobre três eixos. O **código** é rastreado via git, e o MLflow registra automaticamente o hash do commit de cada run na tag `mlflow.source.git.commit`, vinculando cada execução ao estado exato do código que a produziu. O **modelo** é versionado pelo Model Registry, que associa cada versão registrada a um run específico e seus artefatos. Os **dados** utilizam uma fonte fixa: o Stanford Large Movie Review Dataset (aclImdb) é um benchmark público com splits estáveis de treino e teste, mantido como cópia local no diretório `data/raw/aclImdb`. O dataset não é modificado pelo pipeline — a ingestão lê os arquivos de texto diretamente do disco — e o parâmetro `data_dir` é logado em cada run, garantindo rastreabilidade da origem dos dados.
+
 ### 5.3 Evidências
 
+As evidências abaixo foram coletadas na interface do MLflow para demonstrar rastreabilidade, comparação de execuções e análise de métricas. O objetivo das capturas não é apenas mostrar que os runs existem, mas evidenciar quais parâmetros foram comparados em cada experimento.
 
+![Lista de runs do experimento sentiment-imdb](./assets/runs.png)
+
+**Figura 1 — Visão geral dos runs.** A imagem lista as oito execuções registradas no experimento `sentiment-imdb`, exibindo lado a lado as principais métricas (`accuracy`, `f1`, `precision`, `recall`) e os parâmetros variáveis (`sample_size`, `max_length`, `random_seed`). Essa visão permite confirmar que os experimentos foram executados com configurações diferentes e que os resultados ficaram centralizados no mesmo experimento.
+
+![Painel agregado de métricas no MLflow](./assets/graphs.png)
+
+**Figura 2 — Gráficos agregados das métricas.** O painel compara todos os runs em gráficos de barras para acurácia, F1, precisão e recall. Ele resume visualmente a estabilidade geral do modelo e destaca que as execuções com `max_length=128` e `max_length=256` tiveram desempenho inferior às execuções com `max_length=512`.
+
+![Comparação de acurácia entre runs](./assets/accuracy.png)
+
+**Figura 3 — Comparação por acurácia.** A captura isola a métrica `accuracy` para facilitar a identificação dos melhores runs. A comparação mostra que o melhor resultado observado foi `0,914`, obtido com `sample_size=500`, `max_length=512` e sementes diferentes, enquanto o truncamento para `max_length=128` reduziu a acurácia para aproximadamente `0,854`.
+
+![Comparação de F1 entre runs](./assets/f1.png)
+
+**Figura 4 — Comparação por F1.** O gráfico de F1 confirma a mesma tendência vista na acurácia: os runs com limite de 512 tokens ficam no topo, enquanto limites menores de truncamento reduzem a qualidade geral da classificação. Essa métrica é importante porque considera conjuntamente precisão e recall.
+
+![Comparação de precisão entre runs](./assets/precision.png)
+
+**Figura 5 — Comparação por precisão.** A comparação de precisão mostra quantas predições positivas foram corretas entre todas as predições positivas feitas pelo modelo. O baseline de 1.000 amostras apresenta precisão alta, mas os runs de 500 amostras com 512 tokens mantêm desempenho competitivo, reforçando que a amostra de 500 já oferece uma medição estável para o projeto.
+
+![Comparação de recall entre runs](./assets/recall.png)
+
+**Figura 6 — Comparação por recall.** O recall evidencia a capacidade do modelo de recuperar exemplos positivos. A comparação mostra variações maiores do que em precisão, especialmente quando o tamanho de amostra muda, o que ajuda a justificar a análise por múltiplas métricas e não apenas por acurácia.
+
+![Comparação de sample_size em coordenadas paralelas](./assets/size-100_vs_size-500_vs_size-1000.png)
+
+**Figura 7 — Comparação por tamanho de amostra.** A visualização compara `sample_size=100`, `sample_size=500` e `sample_size=1000`, mantendo `max_length=512` e `random_seed=42`. A comparação mostra que 100 amostras ainda é uma medição mais ruidosa, enquanto 500 e 1.000 amostras ficam próximas, indicando estabilização das métricas.
+
+![Detalhes da comparação por sample_size](./assets/size-100_vs_size-500_vs_size-1000_2.png)
+
+**Figura 8 — Detalhes e artefatos por tamanho de amostra.** A imagem detalha os parâmetros e métricas dos mesmos três runs, além de permitir inspecionar artefatos como `classification_report.txt`, `confusion_matrix.txt` e `predictions.csv`. Essa evidência mostra que a comparação visual está conectada a artefatos auditáveis.
+
+![Comparação de max_length em coordenadas paralelas](./assets/size-500%28max-length-512%29_vs_max-length-256_vs_max-length-128.png)
+
+**Figura 9 — Comparação por limite de tokens.** A visualização compara `max_length=512`, `max_length=256` e `max_length=128`, mantendo `sample_size=500` e `random_seed=42`. A queda de desempenho ao reduzir o limite de tokens mostra que resenhas longas carregam informação relevante e que truncamento agressivo prejudica a classificação.
+
+![Detalhes da comparação por max_length](./assets/size-500%28max-length-512%29_vs_max-length-256_vs_max-length-128_2.png)
+
+**Figura 10 — Detalhes e matriz de confusão por limite de tokens.** A captura mostra os valores exatos de métricas e matrizes de confusão para os três limites de tokens. Ela evidencia que `max_length=128` aumenta os erros em relação a `max_length=512`, validando a decisão de usar o limite arquitetural completo do DistilBERT.
+
+![Comparação de random_seed em coordenadas paralelas](./assets/size-500%28seed-42%29_vs_seed-43_vs_seed-44.png)
+
+**Figura 11 — Comparação por semente aleatória.** A visualização compara `random_seed=42`, `43` e `44`, mantendo `sample_size=500` e `max_length=512`. As métricas permanecem muito próximas, indicando baixa sensibilidade à amostragem nessa escala.
+
+![Detalhes da comparação por random_seed](./assets/size-500%28seed-42%29_vs_seed-43_vs_seed-44_2.png)
+
+**Figura 12 — Detalhes e artefatos por semente aleatória.** A imagem mostra os parâmetros fixos e a variação apenas da semente, além das matrizes de confusão correspondentes. Essa evidência reforça que a diferença entre runs vem da amostragem e não de alteração no modelo ou no pré-processamento.
+
+![Rodando experimento](./assets/running.png)
+
+**Figura 13 — Execução do experimento.** A imagem mosta a execução de um experimento no terminal.
 
 ## 6. Deploy
 
-O deploy é realizado via Docker Compose com três serviços em rede interna. O serviço `db` sobe um PostgreSQL 15 como backend de metadados do MLflow. O serviço `mlflow` executa o servidor MLflow na porta 5000, apontando para o PostgreSQL e montando o diretório `mlruns/` local como volume de artefatos. O serviço `pipeline` constrói a imagem a partir do `Dockerfile` (Python 3.10-slim) e executa o pipeline apontando para o MLflow via variável de ambiente `MLFLOW_TRACKING_URI=http://mlflow:5000`.
+O deploy é realizado via Docker Compose com quatro serviços em rede interna. O serviço `db` sobe um PostgreSQL 15 como backend de metadados do MLflow. O serviço `mlflow` executa o servidor MLflow na porta 5000, apontando para o PostgreSQL e montando o diretório `mlruns/` local como volume de artefatos. O serviço `pipeline` constrói a imagem a partir do `Dockerfile` (Python 3.10-slim) e executa o pipeline apontando para o MLflow via variável de ambiente `MLFLOW_TRACKING_URI=http://mlflow:5000`.
+
+A inferência em produção local é exposta pelo serviço `api`, implementado em FastAPI (`src/api.py`). Esse serviço usa a mesma imagem Python do projeto, publica a porta `8000` e se comunica com o MLflow containerizado por meio de `MLFLOW_TRACKING_URI=http://mlflow:5000`. O modelo é referenciado por `SENTIMENT_MODEL_URI=models:/sentiment-imdb/1`, ou seja, a API consome a versão registrada no Model Registry em vez de carregar pesos diretamente de um caminho fixo. O diretório `mlruns/` também é montado no container da API em `/mlflow/mlruns`, garantindo acesso aos artefatos que o MLflow informa como origem do modelo.
+
+O carregamento do modelo na API é feito de forma preguiçosa: o serviço sobe e responde ao endpoint `/health` mesmo que o modelo ainda não tenha sido carregado; a primeira requisição válida em `/predict` dispara o carregamento do modelo registrado. Entradas rejeitadas pelos guardrails retornam HTTP `422` antes dessa etapa, sem consumir inferência.
 
 - **Método de deploy:** Docker Compose com imagem construída localmente a partir do `Dockerfile`
-- **Como executar inferência:** subindo o stack com `docker compose up`, o container `pipeline` executa automaticamente `python -m src.pipeline --data-dir src/data/raw/aclImdb --sample-size 200 --track`; para execuções customizadas, o comando pode ser sobrescrito via `docker compose run pipeline python -m src.pipeline [args]`
+- **Serviços:** `db` (PostgreSQL), `mlflow` (tracking server e registry), `pipeline` (execução e registro do modelo), `api` (inferência HTTP com guardrails).
+- **Endpoints da API:** `GET /health` para verificar disponibilidade e `POST /predict` para classificar uma resenha.
+- **Como executar inferência:** o modelo deve estar registrado no MLflow; em seguida, o serviço `api` pode ser iniciado com `docker compose up --build api`. A rota `POST /predict` aplica os guardrails antes da inferência e só chama o modelo se a entrada for válida.
 
 ```bash
-# Executar o pipeline via Docker Compose
-docker compose up --build
+# Subir MLflow e banco
+docker compose up -d --build mlflow
+
+# Registrar o modelo no MLflow, se necessário
+docker compose run --build pipeline python -m src.pipeline --data-dir data/raw/aclImdb --sample-size 200 --track --register-model
+
+# Subir a API de inferência
+docker compose up --build api
 ```
 
 ## 7. Guardrails e Restrições de Uso
 
+Os guardrails foram implementados no nível da API FastAPI, antes da chamada ao modelo registrado no MLflow. Essa decisão evita que entradas claramente inválidas consumam inferência e impede que o modelo produza uma classificação binária para textos fora do escopo avaliado. A validação fica isolada em `src/guardrails.py` e é chamada por `src/api.py` na rota `POST /predict`.
 
+Guardrails implementados:
+
+- **Entrada vazia:** rejeita strings vazias ou compostas apenas por espaços. O dataset aclImdb não contém resenhas vazias, então esse tipo de entrada está fora da distribuição avaliada.
+- **Comprimento mínimo:** rejeita resenhas com menos de 5 palavras. Entradas como `Great movie` são curtas demais para representar uma resenha de filme no formato usado pelo projeto.
+- **Idioma não inglês:** usa `langdetect` para rejeitar textos detectados como não inglês. O modelo `distilbert-base-uncased-finetuned-sst-2-english` foi treinado para inglês, e as métricas do projeto foram calculadas apenas sobre resenhas em inglês.
+- **Comprimento máximo:** usa o tokenizador do DistilBERT para rejeitar textos com mais de 512 tokens, limite arquitetural do modelo. Esse guardrail evita truncamento silencioso em uma API de inferência.
+
+Quando um guardrail é acionado, a API retorna HTTP `422 Unprocessable Entity` com um código específico no corpo da resposta. Isso diferencia falhas esperadas de validação de falhas de infraestrutura ou de carregamento do modelo. O teste abaixo mostra três rejeições executadas no terminal: resenha curta demais, entrada vazia e resenha em português.
+
+```
+PS C:\Users\Guilherme\UnB\Sistemas-ML\Projeto-2\projeto-individual-2\sentimental-analysis-on-movie-reviews> curl.exe -i -X POST "http://127.0.0.1:8000/predict" `                                                                 
+>>     -H "Content-Type: application/json" `                   
+>>     --data-raw '{"text":"Great movie"}'
+HTTP/1.1 422 Unprocessable Entity
+date: Wed, 15 Apr 2026 21:36:41 GMT
+server: uvicorn
+content-length: 118
+content-type: application/json
+
+{"detail":{"code":"review_too_short","message":"Review is too short to classify reliably. Provide at least 5 words."}}
+PS C:\Users\Guilherme\UnB\Sistemas-ML\Projeto-2\projeto-individual-2\sentimental-analysis-on-movie-reviews> curl.exe -i -X POST "http://127.0.0.1:8000/predict" `
+>>     -H "Content-Type: application/json" `
+>>     --data-raw '{"text":"   "}'
+HTTP/1.1 422 Unprocessable Entity
+date: Wed, 15 Apr 2026 21:36:56 GMT
+server: uvicorn
+content-length: 101
+content-type: application/json
+
+{"detail":{"code":"empty_review","message":"Review text is empty. Provide an English movie review."}}
+PS C:\Users\Guilherme\UnB\Sistemas-ML\Projeto-2\projeto-individual-2\sentimental-analysis-on-movie-reviews> curl.exe -i -X POST "http://127.0.0.1:8000/predict" `
+>>     -H "Content-Type: application/json" `
+>>     --data-raw '{"text":"Este filme tem atuacoes excelentes e uma historia emocionante do comeco ao fim."}'
+HTTP/1.1 422 Unprocessable Entity
+date: Wed, 15 Apr 2026 21:37:20 GMT
+server: uvicorn
+content-length: 134
+content-type: application/json
+
+{"detail":{"code":"non_english_review","message":"Review appears to be non-English. This model only supports English movie reviews."}}
+PS C:\Users\Guilherme\UnB\Sistemas-ML\Projeto-2\projeto-individual-2\sentimental-analysis-on-movie-reviews> 
+```
+
+O primeiro teste confirma o guardrail `review_too_short`, pois a entrada tem apenas duas palavras. O segundo confirma o guardrail `empty_review`, acionado após a normalização de whitespace. O terceiro confirma o guardrail `non_english_review`, porque a entrada é uma resenha em português. Em todos os casos, a API rejeita a requisição antes da inferência, mantendo a resposta do modelo restrita ao cenário validado: resenhas de filmes em inglês, com tamanho mínimo suficiente e dentro do limite de tokens do DistilBERT.
 
 ## 8. Observabilidade
 
@@ -172,7 +285,7 @@ O MLflow UI permite comparar todas as execuções do experimento `sentiment-imdb
 - O modelo opera exclusivamente em inglês, por ter sido treinado no SST-2. Resenhas em outros idiomas produzirão predições sem validade.
 - O modelo é estático: não foi retreinado com dados do IMDb e pode apresentar queda de desempenho em subdomínios com ironia densa, jargão técnico de crítica cinematográfica ou construções linguísticas pouco representadas no SST-2.
 - A avaliação foi feita apenas no split de teste do aclImdb. Não há validação em dados externos, distribuição de produção ou resenhas coletadas após o período de criação do dataset.
-- Não existe guardrail de entrada ou saída implementado: entradas malformadas, textos vazios ou conteúdo fora do domínio são processados sem rejeição ou aviso.
+- Os guardrails atuais cobrem entrada vazia, resenha curta, idioma não inglês e limite máximo de tokens. Ainda não há guardrail de saída por confiança mínima, portanto uma entrada válida ainda pode receber uma predição incorreta com alta confiança.
 
 
 
@@ -196,8 +309,13 @@ mlflow ui --backend-store-uri mlruns/
 
 # 6. Executar via Docker Compose
 docker compose up --build
-```
 
+# 7. Subir a API FastAPI com guardrails
+docker compose up --build api
+
+# 8. Testar health check da API
+curl http://127.0.0.1:8000/health
+```
 
 
 ## 11. Referências
@@ -211,8 +329,8 @@ docker compose up --build
 - [x] Código-fonte completo
 - [x] Pipeline funcional
 - [x] Configuração do MLflow
-- [ ] Evidências de execução (logs, prints ou UI)
+- [x] Evidências de execução (MLflow UI e comparações em `assets/`)
 - [x] Modelo registrado
-- [ ] Script ou endpoint de inferência
-- [ ] Guardrails
-- [] Pull Request aberto
+- [x] Endpoint de inferência com FastAPI
+- [x] Guardrails de entrada na API
+- [x] Pull Request aberto
