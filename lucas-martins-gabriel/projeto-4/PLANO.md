@@ -63,12 +63,16 @@ Validação atual:
   - artefatos bruto e markdown salvos no MinIO;
   - documento, chunks, run e 4 métricas persistidos no Postgres;
   - segundo layout validado de ponta a ponta com fixture.
+- API validada com dados reais persistidos:
+  - `/api/metrics?empresa=CURY&ano=2025&trimestre=3` retornou 4 métricas com lineage;
+  - `/api/conjuntura?ano=2025&trimestre=3` retornou Cury em lançamentos/vendas e percentuais `null` por falta de histórico.
 - O ambiente Codex atual não consegue acessar o socket Docker nem as portas locais dos containers, então testes integrados com Docker devem ser executados no terminal local do usuário.
 
 Próximos itens críticos:
 
 - processar MRV com LLM real;
 - executar MRV/Cury com LLM real quando quiser validar a chamada externa;
+- carregar histórico adicional para obter percentuais do boletim em vez de `null`;
 - completar evidências e README final de submissão.
 
 ## 2. Estado atual do projeto
