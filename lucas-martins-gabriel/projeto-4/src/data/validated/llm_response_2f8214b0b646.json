@@ -1,0 +1,788 @@
+{
+  "company": "MRV",
+  "period": {
+    "year": 2023,
+    "quarter": 2
+  },
+  "report_type": "operational_preview",
+  "metrics": [
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 1288,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 1.288"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 5206,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 5.206"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Ticket Medio",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 247,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 247"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2201,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 2.201"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 9765,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 9.765"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 225,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 225"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "MRV",
+      "value": 1219,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 1.219"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "MRV",
+      "value": 5098,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 5.098"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Ticket Medio",
+      "segment": "MRV",
+      "value": 239,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil) SENSIA      | 239"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "MRV",
+      "value": 2154,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 2.154"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "MRV",
+      "value": 9681,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 9.681"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "MRV",
+      "value": 222,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil) SENSIA      | 222"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "SENSIA",
+      "value": 69,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 69"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "SENSIA",
+      "value": 108,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 108"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Ticket Medio",
+      "segment": "SENSIA",
+      "value": 637,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 637"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "SENSIA",
+      "value": 48,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 48"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "SENSIA",
+      "value": 84,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 84"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "SENSIA",
+      "value": 567,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 567"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "vso",
+      "metric_name": "VSO Líquida Lançamento por módulos",
+      "segment": "MRV Incorporacao",
+      "value": 28.5,
+      "unit": "percent",
+      "scale": "percent",
+      "evidence": {
+        "raw_text": "VSO Líquida Lançamento por módulos            | 28,5%"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "transfers",
+      "metric_name": "Repasses Unidades",
+      "segment": "MRV Incorporacao",
+      "value": 8230,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "REPASSES Unidades                          | 8.230"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "financing",
+      "metric_name": "Vendas com financiamento direto Unidades",
+      "segment": "MRV Incorporacao",
+      "value": 1536,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "VENDAS COMFINANCIAMENTO DIRETO Unidades                          | 1.536"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "production",
+      "metric_name": "Producao Unidades",
+      "segment": "MRV Incorporacao",
+      "value": 7816,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "PRODUÇÃO Unidades                          | 7.816"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracao de caixa",
+      "segment": "MRV Incorporacao",
+      "value": -77.9,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "GERAÇÃO DE CAIXA (R$ mil)         | (77,9)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "RESIA",
+      "value": 347,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 347"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "RESIA",
+      "value": 269,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 269"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "RESIA",
+      "value": 1288,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 1.288"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "production",
+      "metric_name": "Producao Unidades",
+      "segment": "RESIA",
+      "value": 281,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 281"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracao de caixa",
+      "segment": "RESIA",
+      "value": -77.4,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "GERAÇÃO DE CAIXA TOTAL (R$ mil)   | (77,4)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "LUGGO",
+      "value": 21,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 21"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "LUGGO",
+      "value": 88,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 88"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "LUGGO",
+      "value": 240,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 240"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "production",
+      "metric_name": "Producao Unidades",
+      "segment": "LUGGO",
+      "value": 106,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 106"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracao de caixa",
+      "segment": "LUGGO",
+      "value": 7.1,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "GERAÇÃO DE CAIXA (R$ mil)         | 7,1"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "URBA",
+      "value": 23,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  | 23"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "URBA",
+      "value": 188,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 188"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "URBA",
+      "value": 120,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 120"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "production",
+      "metric_name": "Producao Unidades",
+      "segment": "URBA",
+      "value": 228,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 228"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracao de caixa",
+      "segment": "URBA",
+      "value": -0.9,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "GERAÇÃO DE CAIXA (R$ mil)         | (0,9)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "MRV&Co",
+      "value": 1288,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  |  1.288"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "MRV&Co",
+      "value": 5206,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          |  5.206"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "Ticket Medio",
+      "segment": "MRV&Co",
+      "value": 247,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             |    247"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "MRV&Co",
+      "value": 2591,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)                  |  2.591"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "MRV&Co",
+      "value": 10310,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades                          | 10.310"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "MRV&Co",
+      "value": 251,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             |    251"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "transfers",
+      "metric_name": "Repasses Unidades",
+      "segment": "MRV&Co",
+      "value": 8237,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "REPASSES Unidades                          |  8.237"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "financing",
+      "metric_name": "Vendas com financiamento direto Unidades",
+      "segment": "MRV&Co",
+      "value": 1536,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "VENDAS COMFINANCIAMENTO DIRETO Unidades                          |  1.536"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2023,
+        "quarter": 2
+      },
+      "category": "production",
+      "metric_name": "Producao Unidades",
+      "segment": "MRV&Co",
+      "value": 8431,
+      "unit": "units",
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "PRODUÇÃO Unidades                          |  8.431"
+      }
+    }
+  ]
+}

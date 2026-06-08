@@ -1,0 +1,786 @@
+{
+  "company": "MRV",
+  "period": {
+    "year": 2025,
+    "quarter": 1
+  },
+  "report_type": "operational_preview",
+  "metrics": [
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 45.2,
+      "unit": "BRL_billion",
+      "currency": "BRL",
+      "scale": "billion",
+      "evidence": {
+        "raw_text": "LAND BANK | VGV (R$ bilhoes) | 45,2",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2888,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "LANCAMENTOS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 2.888",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 10837,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "LANCAMENTOS | TOTAL INCORPORACAO | Unidades | 10.837",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "MRV",
+      "value": 2746,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "MRV | VGV (R$ milhoes) | 2.746",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "MRV",
+      "value": 10546,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "MRV | Unidades | 10.546",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "SENSIA",
+      "value": 142,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "SENSIA | VGV (R$ milhoes) | 142",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "SENSIA",
+      "value": 291,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "SENSIA | Unidades | 291",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2167,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 2.167",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 8377,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | Unidades | 8.377",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 259,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | Ticket Médio (R$ mil) | 259",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "MRV",
+      "value": 2000,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "MRV | VGV (R$ milhoes) | 2.000",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "MRV",
+      "value": 8070,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "MRV | Unidades | 8.070",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "MRV",
+      "value": 248,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "MRV | Ticket Médio (R$ mil) | 248",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "SENSIA",
+      "value": 167,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "SENSIA | VGV (R$ milhoes) | 167",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "SENSIA",
+      "value": 308,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "SENSIA | Unidades | 308",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "SENSIA",
+      "value": 544,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "SENSIA | Ticket Médio (R$ mil) | 544",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "vso",
+      "metric_name": "VSO Líquida",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 25.0,
+      "unit": "percent",
+      "currency": null,
+      "scale": "percent",
+      "evidence": {
+        "raw_text": "VSO LiQUIDA Lancamento por modulos | 25,0%",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "transfers",
+      "metric_name": "Repasses Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 7180,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "REPASSES Unidades | 7.180",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "financing",
+      "metric_name": "Vendas com financiamento direto Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 654,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "VENDAS COM FINANCIAMENTO DIRETO Unidades | 654",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "production",
+      "metric_name": "Produção Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 9454,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "PRODUCAO Unidades | 9.454",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "cash_generation",
+      "metric_name": "Geração de caixa ajustada",
+      "segment": "TOTAL INCORPORACAO",
+      "value": -48.3,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "GERACAO DE CAIXA AJUST. (R$ milhoes)* | (48,3)",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "cash_generation",
+      "metric_name": "Geração de caixa sem cessão de carteira",
+      "segment": "TOTAL INCORPORACAO",
+      "value": -125.2,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "CARTEIRA (R$ milhoes)** | (125,2)",
+        "chunk_id": "14849e22-7748-46ea-9f63-27070b456cb6"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "RESIA",
+      "value": 0.8,
+      "unit": "BRL_billion",
+      "currency": "BRL",
+      "scale": "billion",
+      "evidence": {
+        "raw_text": "LAND BANK | VGV (R$ bilhoes) | 0,8",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "Unidades",
+      "segment": "RESIA",
+      "value": 1885,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "LAND BANK | Unidades | 1.885",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "Ticket Médio",
+      "segment": "RESIA",
+      "value": 399,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "LAND BANK | Ticket Médio (R$ mil) | 399",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "production",
+      "metric_name": "Produção Unidades",
+      "segment": "RESIA",
+      "value": 81,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "PRODUCAO | Unidades | 81",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "cash_generation",
+      "metric_name": "Geração de caixa",
+      "segment": "RESIA",
+      "value": 5.7,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "GERACAO DE CAIXA (R$ milhoes) | 5,7",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "URBA",
+      "value": 2.1,
+      "unit": "BRL_billion",
+      "currency": "BRL",
+      "scale": "billion",
+      "evidence": {
+        "raw_text": "LAND BANK | VGV (R$ bilhoes) | 2,1",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "Unidades",
+      "segment": "URBA",
+      "value": 13925,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "LAND BANK | Unidades | 13.925",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "Ticket Médio",
+      "segment": "URBA",
+      "value": 147,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "LAND BANK | Ticket Médio (R$ mil) | 147",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "URBA",
+      "value": 27,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VENDAS | VGV (R$ milh6es) | 27",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "URBA",
+      "value": 205,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "VENDAS | Unidades | 205",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "URBA",
+      "value": 130,
+      "unit": "thousand_BRL",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "VENDAS | Ticket Médio (R$ mil) | 130",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "cash_generation",
+      "metric_name": "Geração de caixa",
+      "segment": "URBA",
+      "value": 25.8,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "GERACAO DE CAIXA (R$ milhoes) | 25,8",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "LUGGO",
+      "value": 3.0,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "billion",
+      "evidence": {
+        "raw_text": "LAND BANK | VGV (US$ bilhoes) | 3,0",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "Unidades",
+      "segment": "LUGGO",
+      "value": 8290,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "LAND BANK | Unidades | 8.290",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "landbank",
+      "metric_name": "Ticket Médio",
+      "segment": "LUGGO",
+      "value": 361,
+      "unit": "other",
+      "currency": "USD",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "LAND BANK | Ticket Médio (Us$ mil) | 361",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "LUGGO",
+      "value": null,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (US$ milhoes) | ",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "LUGGO",
+      "value": null,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "Unidades | ",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "LUGGO",
+      "value": null,
+      "unit": "other",
+      "currency": "USD",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (US$ mil) | ",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "production",
+      "metric_name": "Produção Unidades",
+      "segment": "LUGGO",
+      "value": 82,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "evidence": {
+        "raw_text": "PRODUCAO | Unidades | 82",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "cash_generation",
+      "metric_name": "Geração de Caixa Holding",
+      "segment": "LUGGO",
+      "value": -7.3,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Geracao de Caixa Holding | (7,3)",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "cash_generation",
+      "metric_name": "Geração de Caixa Total",
+      "segment": "LUGGO",
+      "value": -59.0,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "GERACAO DE CAIXA TOTAL (USS milhoes) | (59,0)",
+        "chunk_id": "7df26720-e62a-4cba-ac9f-cf3b0206cc8b"
+      }
+    }
+  ],
+  "missing_relevant_fields": [],
+  "extraction_notes": []
+}

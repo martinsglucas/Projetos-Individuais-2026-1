@@ -1,0 +1,83 @@
+{
+  "company": "MRV",
+  "period": {
+    "year": 2025,
+    "quarter": 1
+  },
+  "report_type": "operational_preview",
+  "metrics": [
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2888,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "LANCAMENTOS TOTAL INCORPORACAO VGV (R$ milhoes) 2.888",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2167,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "VENDAS TOTAL INCORPORACAO VGV (R$ milhoes) 2.167",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 1
+      },
+      "category": "production",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 9454,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "is_estimated": false,
+      "confidence": 0.9,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "PRODUCAO Unidades 9.454",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    }
+  ],
+  "missing_relevant_fields": [],
+  "extraction_notes": [
+    "Fixture manual usada para validar persistencia sem chamada LLM."
+  ]
+}
