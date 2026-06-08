@@ -81,13 +81,33 @@ def run_extraction(
         raw_text = fixture_path.read_text(encoding="utf-8")
         parsed = parse_llm_response(raw_text)
         provider = "fixture"
+        actual_model_name = model_name
         status = "succeeded"
         finished_at = datetime.utcnow()
     else:
         provider = "gemini"
-        result = GeminiProvider(model_name=model_name).extract(prompt)
+        try:
+            result = GeminiProvider(model_name=model_name).extract(prompt)
+        except Exception as exc:
+            finished_at = datetime.utcnow()
+            failed_run = ExtractionRun(
+                document_hash=document_hash,
+                strategy=ExtractionStrategy.HYBRID,
+                parser="docling",
+                llm_provider=provider,
+                llm_model=model_name,
+                prompt_version=PROMPT_VERSION,
+                started_at=started_at,
+                finished_at=finished_at,
+                status="failed",
+                error_message=str(exc),
+            )
+            repo.insert_extraction_run(failed_run)
+            repo.mark_document_status(document_hash, "failed", error_message=str(exc))
+            raise
         raw_text = result.raw_text
         parsed = result.parsed
+        actual_model_name = result.model_name
         input_tokens = result.input_tokens
         output_tokens = result.output_tokens
         status = "succeeded"
@@ -113,7 +133,7 @@ def run_extraction(
         document_hash=document_hash,
         strategy=ExtractionStrategy.HYBRID,
         llm_provider=provider,
-        llm_model=model_name,
+        llm_model=actual_model_name,
         prompt_version=PROMPT_VERSION,
         started_at=started_at,
         finished_at=finished_at,

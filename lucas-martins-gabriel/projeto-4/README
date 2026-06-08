@@ -57,6 +57,8 @@ MINIO_ACCESS_KEY=minioadmin
 MINIO_SECRET_KEY=minioadmin
 MINIO_BUCKET=uda-artifacts
 ARTIFACT_STORAGE_BACKEND=minio
+GEMINI_FALLBACK_MODELS=gemini-2.5-flash-lite
+GEMINI_MAX_ATTEMPTS=2
 ```
 
 Use `src/.env.example` como base para criar o `.env` local.
@@ -66,6 +68,46 @@ Para desenvolvimento sem MinIO, use:
 ```bash
 export ARTIFACT_STORAGE_BACKEND=filesystem
 ```
+
+## MinIO
+
+O MinIO e usado como storage de artefatos do pipeline. O bucket padrao e `uda-artifacts`, criado automaticamente quando o storage e inicializado.
+
+Console web:
+
+```text
+http://localhost:9001
+```
+
+Credenciais locais do `docker-compose.yml`:
+
+```text
+usuario: minioadmin
+senha: minioadmin
+```
+
+Estrutura de objetos gravada pelo pipeline:
+
+```text
+raw/<EMPRESA>/<ANO>/<PERIODO>/<pdf_hash>.pdf
+parsed/<EMPRESA>/<ANO>/<PERIODO>/<pdf_hash>.md
+validated/<EMPRESA>/<ANO>/<PERIODO>/llm_response_<pdf_hash>.json
+```
+
+Esses caminhos tambem ficam registrados no Postgres em campos como `documents.storage_path`, `documents.parsed_storage_path` e `extraction_runs.raw_response_storage_path`.
+
+## LLM real
+
+O provider Gemini usa `google-genai`. Por padrao, o modelo primario e `gemini-2.5-flash`.
+
+Para reduzir falhas temporarias de capacidade (`503 UNAVAILABLE`), o provider faz retry e pode tentar modelos de fallback:
+
+```bash
+export GEMINI_FALLBACK_MODELS=gemini-2.5-flash-lite
+export GEMINI_MAX_ATTEMPTS=2
+```
+
+O contrato Pydantic continua sendo o filtro de qualidade. Aliases seguros de unidade retornados pela LLM, como `BRL_thousand`, sao normalizados para o enum aceito `thousand_BRL`; respostas fora do contrato continuam falhando e ficam registradas como execucao com status `failed`.
 
 Smoke integrado com Postgres, MinIO e fixture offline:
 
