@@ -47,10 +47,11 @@ Implementado nesta branch:
 - cálculo dos comparativos do boletim a partir de valores absolutos;
 - testes unitários de contratos, LLM, filtro de chunks, storage, ingestão e cálculo de conjuntura;
 - smoke integrado em `src/scripts/smoke_integrated_pipeline.py`.
+- README final com evidências de atendimento aos requisitos, comandos de reprodução e testes.
 
 Validação atual:
 
-- `pytest`: 15 testes passaram.
+- `pytest`: 19 testes passaram.
 - Smoke integrado com Postgres, MinIO e fixture MRV 1T25 executado com sucesso no terminal local:
   - `postgres=ok`;
   - `schema=ok`;
@@ -86,8 +87,8 @@ Validação atual:
 Próximos itens críticos:
 
 - repetir a extração MRV/Cury com LLM real quando o Gemini não estiver retornando `503`;
-- carregar mais histórico ou acumulados para obter todos os percentuais do boletim em vez de `null`;
-- completar evidências e README final de submissão.
+- opcionalmente carregar mais histórico para calcular `acumulado_ano_anterior_pct`, que hoje retorna `null` quando faltam dados `9M23`;
+- revisar a submissão/PR final.
 
 ## 2. Estado atual do projeto
 
