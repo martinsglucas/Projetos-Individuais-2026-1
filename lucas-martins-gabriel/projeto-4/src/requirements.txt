@@ -1,0 +1,12 @@
+docling==2.94.0
+beautifulsoup4==4.14.2
+fastapi==0.124.2
+google-genai==2.8.0
+minio==7.2.20
+pandas==2.3.3
+psycopg2-binary==2.9.12
+pydantic==2.13.4
+pytest==9.0.2
+requests==2.32.5
+SQLAlchemy==2.0.49
+uvicorn==0.38.0
