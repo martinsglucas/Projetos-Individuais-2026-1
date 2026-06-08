@@ -4,8 +4,9 @@ import argparse
 import os
 import re
 import time
+from collections.abc import Iterable
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
@@ -21,6 +22,7 @@ DEFAULT_RAW_DIR = SRC_ROOT / "data" / "raw"
 DEFAULT_USER_AGENT = "uda-pipeline-projeto-4/0.1 (academic polling; daily)"
 PDF_TIMEOUT_SECONDS = 30
 HTML_TIMEOUT_SECONDS = 20
+MZIQ_FILEMANAGER_BASE = "https://apicatalog.mziq.com/filemanager"
 
 PERIOD_PATTERN = re.compile(r"(?P<quarter>[1-4])\s*T\s*(?:20)?(?P<year>\d{2})", re.IGNORECASE)
 PREVIEW_TERMS = ("previa operacional", "prévia operacional", "operational preview")
@@ -49,10 +51,79 @@ def is_operational_preview(value: str) -> bool:
     return any(term in normalized for term in PREVIEW_TERMS)
 
 
+def extract_mziq_config(html: str) -> tuple[str | None, list[str]]:
+    fm_match = re.search(r"var\s+fmId\s*=\s*['\"]([^'\"]+)['\"]", html)
+    fm_id = fm_match.group(1) if fm_match else None
+
+    categories: list[str] = []
+    for block in re.finditer(r"categories\.push\(\{(?P<body>.*?)\}\)", html, flags=re.DOTALL):
+        body = block.group("body")
+        title_match = re.search(r"title\s*:\s*['\"]([^'\"]+)['\"]", body)
+        internal_match = re.search(r"internal_name\s*:\s*['\"]([^'\"]+)['\"]", body)
+        if not title_match or not internal_match:
+            continue
+        if is_operational_preview(title_match.group(1)):
+            categories.append(internal_match.group(1))
+
+    return fm_id, categories
+
+
+def discover_mziq_pdf_links(html: str, *, years: list[int]) -> list[PdfCandidate]:
+    fm_id, categories = extract_mziq_config(html)
+    if not fm_id or not categories:
+        return []
+
+    candidates: dict[str, PdfCandidate] = {}
+    headers = {"User-Agent": os.getenv("UDA_USER_AGENT", DEFAULT_USER_AGENT)}
+    url = f"{MZIQ_FILEMANAGER_BASE}/company/{fm_id}/filter/categories/year/meta"
+
+    for year in years:
+        payload = {
+            "categories": categories,
+            "categoryInternalNames": categories,
+            "published": True,
+            "year": year,
+            "language": "pt_BR",
+        }
+        response = requests.post(url, json=payload, headers=headers, timeout=HTML_TIMEOUT_SECONDS)
+        response.raise_for_status()
+        data = response.json()
+        for document in data.get("data", {}).get("document_metas", []):
+            document_url = document.get("link_url") or document.get("permalink") or document.get("file_url")
+            if not document_url:
+                continue
+
+            title = normalize_text(document.get("file_title") or document.get("file_name_original") or document_url)
+            quarter = document.get("file_quarter")
+            file_year = document.get("file_year")
+            period = None
+            if quarter and file_year:
+                period = Period(year=int(file_year), quarter=int(quarter))
+            else:
+                period = infer_period(f"{title} {document_url}")
+
+            candidates[document_url] = PdfCandidate(url=document_url, title=title, period=period)
+
+    return sort_candidates(candidates.values())
+
+
+def sort_candidates(candidates: Iterable[PdfCandidate]) -> list[PdfCandidate]:
+    def sort_key(candidate: PdfCandidate) -> tuple[int, int, str]:
+        if candidate.period is None:
+            return (0, 0, candidate.title)
+        return (candidate.period.year, candidate.period.quarter, candidate.title)
+
+    return sorted(candidates, key=sort_key, reverse=True)
+
+
 def discover_pdf_links(source_url: str, *, include_all_pdfs: bool = False) -> list[PdfCandidate]:
     headers = {"User-Agent": os.getenv("UDA_USER_AGENT", DEFAULT_USER_AGENT)}
     response = requests.get(source_url, headers=headers, timeout=HTML_TIMEOUT_SECONDS)
     response.raise_for_status()
+    current_year = date.today().year
+    mziq_candidates = discover_mziq_pdf_links(response.text, years=list(range(current_year - 2, current_year + 1)))
+    if mziq_candidates:
+        return mziq_candidates
 
     soup = BeautifulSoup(response.text, "html.parser")
     candidates: dict[str, PdfCandidate] = {}
@@ -72,7 +143,7 @@ def discover_pdf_links(source_url: str, *, include_all_pdfs: bool = False) -> li
         period = infer_period(context)
         candidates[absolute_url] = PdfCandidate(url=absolute_url, title=title, period=period)
 
-    return sorted(candidates.values(), key=lambda candidate: candidate.url)
+    return sort_candidates(candidates.values())
 
 
 def download_pdf(candidate: PdfCandidate, *, output_dir: Path) -> Path:

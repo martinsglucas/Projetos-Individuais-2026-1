@@ -93,6 +93,8 @@ Executa uma varredura das fontes cadastradas no banco:
 PYTHONPATH=. python -m services.ingestion.poll_sources
 ```
 
+O polling suporta páginas MZIQ como MRV e Cury usando a API pública de file manager quando os PDFs não aparecem diretamente no HTML.
+
 Filtrar por empresa:
 
 ```bash

@@ -41,6 +41,7 @@ Implementado nesta branch:
 - orquestrador local `services.extractor.run_pipeline`;
 - storage de artefatos com MinIO como backend principal e filesystem como fallback;
 - polling agendável em `services.ingestion.poll_sources`;
+- descoberta de prévias operacionais MRV/Cury via API pública MZIQ File Manager;
 - API FastAPI com `/health`, `/api/companies`, `/api/documents`, `/api/metrics` e `/api/conjuntura`;
 - cálculo dos comparativos do boletim a partir de valores absolutos;
 - testes unitários de contratos, LLM, filtro de chunks e cálculo de conjuntura.
@@ -110,6 +111,7 @@ Próximos itens críticos:
 - Demonstração com pelo menos dois layouts diferentes de empresas/documentos.
 - Execução ponta a ponta completa com Postgres, MinIO e LLM real.
 - Teste de polling contra MRV/Cury em rede.
+- Download/processamento integrado dos PDFs descobertos por polling em ambiente com Docker acessível.
 - Evidências finais para submissão.
 
 ## 2.1. Comandos de validação integrada pendentes
