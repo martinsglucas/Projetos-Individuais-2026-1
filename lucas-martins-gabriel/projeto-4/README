@@ -1,0 +1,111 @@
+# Desafio de Processamento de Dado Não Estruturado
+
+O plano de conclusão do projeto está documentado em [PLANO.md](PLANO.md).
+
+## Visão geral
+
+Pipeline UDA para coletar PDFs de centrais de resultados de incorporadoras, extrair métricas operacionais com LLM e servir os dados em uma API de conjuntura habitacional.
+
+Fluxo principal:
+
+```text
+Central de Resultados RI
+-> polling
+-> download do PDF
+-> SHA-256/idempotencia
+-> MinIO
+-> Docling/markdown
+-> chunking e filtro semantico
+-> LLM com contrato Pydantic
+-> Postgres com lineage
+-> API REST
+```
+
+## Fontes configuradas
+
+- MRV: https://ri.mrv.com.br/informacoes-financeiras/central-de-resultados/
+- Cury: https://ri.cury.net/informacoes-aos-investidores/central-de-resultados/
+
+## Setup local
+
+```bash
+cd lucas-martins-gabriel/projeto-4/src
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+docker compose up -d
+psql postgresql://admin:admin@localhost:5432/uda -f db/001_initial_schema.sql
+```
+
+Variáveis esperadas no `.env`:
+
+```text
+DATABASE_URL=postgresql://admin:admin@localhost:5432/uda
+GEMINI_API_KEY=...
+MINIO_ENDPOINT=localhost:9000
+MINIO_ACCESS_KEY=minioadmin
+MINIO_SECRET_KEY=minioadmin
+MINIO_BUCKET=uda-artifacts
+ARTIFACT_STORAGE_BACKEND=minio
+```
+
+Para desenvolvimento sem MinIO, use:
+
+```bash
+export ARTIFACT_STORAGE_BACKEND=filesystem
+```
+
+## Pipeline local
+
+Com LLM real:
+
+```bash
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/mrv_1t25.pdf \
+  --company MRV \
+  --period 1T25 \
+  --source-url https://ri.mrv.com.br/informacoes-financeiras/central-de-resultados/
+```
+
+Com fixture offline para teste sem chamada externa:
+
+```bash
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/mrv_1t25.pdf \
+  --company MRV \
+  --period 1T25 \
+  --fixture data/validated/mrv_1t25_fixture_metrics.json
+```
+
+## Polling
+
+Executa uma varredura das fontes cadastradas no banco:
+
+```bash
+PYTHONPATH=. python -m services.ingestion.poll_sources
+```
+
+Filtrar por empresa:
+
+```bash
+PYTHONPATH=. python -m services.ingestion.poll_sources --company MRV
+```
+
+## API
+
+```bash
+PYTHONPATH=. uvicorn services.api.main:app --reload --port 8000
+```
+
+Endpoints principais:
+
+```text
+GET /health
+GET /api/companies
+GET /api/documents
+GET /api/metrics
+GET /api/conjuntura?ano=2025&trimestre=3
+GET /api/conjuntura?empresa=MRV&ano=2025&trimestre=3
+```
+
+A API de conjuntura calcula percentuais a partir dos valores absolutos gravados no banco. Quando falta histórico para algum comparativo, o campo correspondente retorna `null`.
