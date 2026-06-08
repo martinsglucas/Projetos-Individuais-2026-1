@@ -17,6 +17,7 @@ from contracts import (
 )
 from db import UdaRepository
 from services.extractor.chunk_filter import select_relevant_chunks
+from services.extractor.lineage import resolve_metric_chunk_id
 from services.extractor.llm import GeminiProvider, parse_llm_response
 from services.extractor.prompts import PROMPT_VERSION, build_metric_extraction_prompt
 from services.storage import artifact_name, get_artifact_storage
@@ -126,7 +127,15 @@ def run_extraction(
     )
 
     repo.delete_metrics_for_document(document_hash)
-    metric_ids = repo.insert_metric_batch(parsed.metrics, document_hash=document_hash, extraction_run_id=run_id)
+    metric_ids = [
+        repo.insert_metric(
+            metric=metric,
+            document_hash=document_hash,
+            extraction_run_id=run_id,
+            chunk_id=resolve_metric_chunk_id(metric.evidence.chunk_id, chunks),
+        )
+        for metric in parsed.metrics
+    ]
     repo.mark_document_status(document_hash, "extracted")
 
     print(f"document_hash={document_hash}")

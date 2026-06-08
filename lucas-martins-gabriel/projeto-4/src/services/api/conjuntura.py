@@ -47,13 +47,12 @@ def _sum_period(
     quarters: range,
 ) -> Decimal | None:
     total = Decimal("0")
-    found = False
     for quarter in quarters:
         value = values.get((company_code, category, year, quarter))
-        if value is not None:
-            total += value
-            found = True
-    return total if found else None
+        if value is None:
+            return None
+        total += value
+    return total
 
 
 def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter: int) -> dict[str, Any]:
@@ -165,13 +164,12 @@ def _total_ytd(
     quarters: range,
 ) -> Decimal | None:
     total = Decimal("0")
-    found = False
     for quarter in quarters:
         value = _total_for(values, category=category, year=year, quarter=quarter)
-        if value is not None:
-            total += value
-            found = True
-    return total if found else None
+        if value is None:
+            return None
+        total += value
+    return total
 
 
 def _build_total(

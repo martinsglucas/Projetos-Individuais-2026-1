@@ -30,7 +30,10 @@ class FilesystemArtifactStorage(ArtifactStorage):
         output_path = self.base_dir / object_name
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_bytes(data)
-        return str(output_path.relative_to(SRC_ROOT))
+        try:
+            return str(output_path.relative_to(SRC_ROOT))
+        except ValueError:
+            return str(output_path)
 
 
 class MinioArtifactStorage(ArtifactStorage):

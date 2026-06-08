@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -132,17 +133,25 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--company", choices=[item.value for item in CompanyCode], default=None)
     parser.add_argument("--include-all-pdfs", action="store_true")
     parser.add_argument("--discover-only", action="store_true", help="Discover and download-check candidates without parsing.")
+    parser.add_argument("--loop", action="store_true", help="Keep polling with a sleep interval between runs.")
+    parser.add_argument("--interval-hours", type=float, default=24.0, help="Polling interval when --loop is enabled.")
     return parser.parse_args()
 
 
 def main() -> None:
     load_dotenv_file()
     args = parse_args()
-    poll_once(
-        company=CompanyCode(args.company) if args.company else None,
-        include_all_pdfs=args.include_all_pdfs,
-        process=not args.discover_only,
-    )
+    while True:
+        poll_once(
+            company=CompanyCode(args.company) if args.company else None,
+            include_all_pdfs=args.include_all_pdfs,
+            process=not args.discover_only,
+        )
+        if not args.loop:
+            break
+        sleep_seconds = max(args.interval_hours, 0.1) * 60 * 60
+        print(f"sleep_seconds={sleep_seconds:.0f}")
+        time.sleep(sleep_seconds)
 
 
 if __name__ == "__main__":

@@ -28,3 +28,16 @@ def test_build_conjuntura_response_calculates_company_variations() -> None:
     assert company["x_trimestre_anterior_pct"] == Decimal("20.0")
     assert company["x_mesmo_trimestre_ano_anterior_pct"] == Decimal("50.0")
     assert company["acumulado_ano_atual_pct"] == Decimal("34.8")
+
+
+def test_build_conjuntura_response_returns_null_for_incomplete_ytd() -> None:
+    rows = [
+        {"company_code": "MRV", "category": "sales", "metric_name": "VGV", "year": 2025, "quarter": 3, "value": 120},
+        {"company_code": "MRV", "category": "sales", "metric_name": "VGV", "year": 2025, "quarter": 2, "value": 100},
+        {"company_code": "MRV", "category": "sales", "metric_name": "VGV", "year": 2024, "quarter": 3, "value": 80},
+    ]
+
+    response = build_conjuntura_response(rows, year=2025, quarter=3)
+    company = response["metricas"]["vendas"]["empresas"][0]
+
+    assert company["acumulado_ano_atual_pct"] is None

@@ -49,6 +49,8 @@ MINIO_BUCKET=uda-artifacts
 ARTIFACT_STORAGE_BACKEND=minio
 ```
 
+Use `src/.env.example` como base para criar o `.env` local.
+
 Para desenvolvimento sem MinIO, use:
 
 ```bash
@@ -89,6 +91,12 @@ Filtrar por empresa:
 
 ```bash
 PYTHONPATH=. python -m services.ingestion.poll_sources --company MRV
+```
+
+Rodar continuamente com intervalo diário:
+
+```bash
+PYTHONPATH=. python -m services.ingestion.poll_sources --loop --interval-hours 24
 ```
 
 ## API

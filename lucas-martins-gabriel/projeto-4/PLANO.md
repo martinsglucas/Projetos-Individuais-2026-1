@@ -27,6 +27,36 @@ O foco da entrega deve ser robustez arquitetural e rastreabilidade, não interfa
 - Polling: implementar como comando agendável que carrega/coleta documentos das fontes cadastradas. Se houver tempo, adicionar modo `--loop` com intervalo configurável.
 - Saída da API: deve retornar dados no formato necessário para montar o boletim `boletim_conjuntura_3t25.pdf`, mas apenas para as empresas processadas.
 
+## 1.2. Status atual
+
+Implementado nesta branch:
+
+- plano de execução e README operacional;
+- commits incrementais na branch `projeto-4`;
+- contratos Pydantic e schema Postgres;
+- seed de empresas e fontes MRV/Cury;
+- repository para catálogo, chunks, métricas, fontes e consultas da API;
+- parsing Docling, chunking e filtro semântico de chunks;
+- provider Gemini migrado para `google-genai`;
+- orquestrador local `services.extractor.run_pipeline`;
+- storage de artefatos com MinIO como backend principal e filesystem como fallback;
+- polling agendável em `services.ingestion.poll_sources`;
+- API FastAPI com `/health`, `/api/companies`, `/api/documents`, `/api/metrics` e `/api/conjuntura`;
+- cálculo dos comparativos do boletim a partir de valores absolutos;
+- testes unitários de contratos, LLM, filtro de chunks e cálculo de conjuntura.
+
+Validação atual:
+
+- `pytest`: 14 testes passaram.
+- O ambiente Codex atual não conseguiu acessar o socket Docker, então a validação integrada Postgres/MinIO precisa ser rodada no terminal local do usuário.
+
+Próximos itens críticos:
+
+- subir Postgres e MinIO para testar o fluxo ponta a ponta;
+- processar MRV com fixture e depois com LLM real;
+- coletar/processar Cury ou Pacaembu para validar segundo layout;
+- completar evidências e README final de submissão.
+
 ## 2. Estado atual do projeto
 
 ### Já implementado
@@ -57,29 +87,52 @@ O foco da entrega deve ser robustez arquitetural e rastreabilidade, não interfa
 - Integração de LLM com Gemini em `src/services/extractor/llm.py`.
 - CLI de parsing e persistência de chunks em `src/services/extractor/process_pdf.py`.
 - CLI de extração de métricas e persistência em `src/services/extractor/extract_metrics.py`.
+- Orquestrador local com idempotência em `src/services/extractor/run_pipeline.py`.
+- Filtro semântico de chunks em `src/services/extractor/chunk_filter.py`.
+- Storage de artefatos em `src/services/storage/`.
+- Polling agendável em `src/services/ingestion/poll_sources.py`.
+- API REST em `src/services/api/main.py`.
+- Cálculo de conjuntura em `src/services/api/conjuntura.py`.
+- Testes automatizados em `src/tests/`.
 - Fixture validada para MRV 1T25 em `src/data/validated/mrv_1t25_fixture_metrics.json`.
 - PDFs e markdowns de MRV já armazenados em `src/data/`.
 
 ### Parcialmente implementado
 
-- Idempotência: existe hash único no banco e cálculo de SHA-256, mas o fluxo ainda não possui uma etapa explícita de "se já processado, ignorar antes de parsing/LLM".
-- Linhagem: o schema e os contratos suportam URL, hash, chunk, evidência e execução; ainda falta garantir preenchimento consistente de `chunk_id`, `source_page`, `source_url` e caminhos de armazenamento.
-- MinIO: está no compose, mas ainda não existe camada de storage implementada. Hoje os artefatos ficam no filesystem local.
-- Validação LLM: existe validação Pydantic, mas é necessário testar falhas, valores `null`, valores negativos e resposta fora do schema.
-- Filtro de chunks: existe uma seleção simples por palavras-chave em `extract_metrics.py`, mas ela precisa favorecer tabelas operacionais e ignorar chunks de destaque/imagem quando não trazem valores estruturados.
+- Idempotência: o orquestrador local e o polling consultam hash antes de reprocessar, mas ainda falta validar esse comportamento com Postgres real rodando.
+- Linhagem: o schema e os contratos suportam URL, hash, chunk, evidência, storage e execução; ainda falta validar preenchimento em execução ponta a ponta com PDFs reais.
+- MinIO: a camada foi implementada, mas ainda falta teste integrado com o container MinIO.
+- API REST: implementada e coberta por teste unitário direto dos endpoints.
 
 ### Ainda não implementado
 
-- Monitoramento/polling de páginas de RI.
-- Download automatizado de PDFs encontrados.
-- Cadastro e uso real de `ingestion_sources`.
-- Orquestração ponta a ponta a partir de uma URL nova.
-- API REST com FastAPI.
-- Endpoints exigidos, especialmente `GET /api/conjuntura?empresa=MRV&ano=2025&trimestre=1`.
-- Testes automatizados.
-- README de execução do projeto.
 - Demonstração com pelo menos dois layouts diferentes de empresas/documentos.
-- Cálculo de indicadores comparativos iguais ao boletim de conjuntura.
+- Execução ponta a ponta completa com Postgres, MinIO e LLM real.
+- Teste de polling contra MRV/Cury em rede.
+- Evidências finais para submissão.
+
+## 2.1. Comandos de validação integrada pendentes
+
+Rodar no terminal local, onde Docker está acessível:
+
+```bash
+cd lucas-martins-gabriel/projeto-4/src
+docker compose up -d
+psql postgresql://admin:admin@localhost:5432/uda -f db/001_initial_schema.sql
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/mrv_1t25.pdf \
+  --company MRV \
+  --period 1T25 \
+  --fixture data/validated/mrv_1t25_fixture_metrics.json
+PYTHONPATH=. uvicorn services.api.main:app --port 8000
+```
+
+Depois consultar:
+
+```bash
+curl "http://localhost:8000/api/metrics?empresa=MRV&ano=2025&trimestre=1"
+curl "http://localhost:8000/api/conjuntura?empresa=MRV&ano=2025&trimestre=1"
+```
 
 ## 3. Plano de implementação
 
