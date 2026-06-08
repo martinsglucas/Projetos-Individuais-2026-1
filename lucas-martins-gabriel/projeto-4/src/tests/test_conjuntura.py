@@ -71,6 +71,7 @@ def test_build_conjuntura_response_uses_ytd_metrics_when_available() -> None:
             "year": 2025,
             "quarter": 3,
             "value": 6194.0,
+            "source_text": "Vendas Líquidas (R$ milhões VGV) | 9M25 | 6.194,0",
         },
         {
             "company_code": "CURY",
@@ -89,3 +90,34 @@ def test_build_conjuntura_response_uses_ytd_metrics_when_available() -> None:
     assert company["x_mesmo_trimestre_ano_anterior_pct"] == Decimal("27.1")
     assert company["acumulado_ano_atual_pct"] == Decimal("30.7")
     assert "acumulado_ano_atual" not in company["missing_history"]
+    assert len(company["lineage"]) == 1
+    assert company["accumulated_lineage"][0]["source_text"] == "Vendas Líquidas (R$ milhões VGV) | 9M25 | 6.194,0"
+
+
+def test_build_conjuntura_response_keeps_quarter_and_ytd_lineage_separate() -> None:
+    rows = [
+        {
+            "company_code": "CURY",
+            "category": "launches",
+            "metric_name": "VGV",
+            "year": 2025,
+            "quarter": 3,
+            "value": 1986.4,
+            "source_text": "Lançamentos | VGV (R$ milhões) | 3T25 | 1.986,4",
+        },
+        {
+            "company_code": "CURY",
+            "category": "launches",
+            "metric_name": "VGV acumulado",
+            "year": 2025,
+            "quarter": 3,
+            "value": 6995.2,
+            "source_text": "Lançamentos | VGV (R$ milhões) | 9M25 | 6.995,2",
+        },
+    ]
+
+    response = build_conjuntura_response(rows, year=2025, quarter=3)
+    company = response["metricas"]["lancamentos"]["empresas"][0]
+
+    assert company["lineage"][0]["source_text"] == "Lançamentos | VGV (R$ milhões) | 3T25 | 1.986,4"
+    assert company["accumulated_lineage"][0]["source_text"] == "Lançamentos | VGV (R$ milhões) | 9M25 | 6.995,2"

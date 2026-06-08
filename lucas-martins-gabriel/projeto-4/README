@@ -152,7 +152,7 @@ GET /api/conjuntura?ano=2025&trimestre=3
 GET /api/conjuntura?empresa=MRV&ano=2025&trimestre=3
 ```
 
-A API de conjuntura calcula percentuais a partir dos valores absolutos gravados no banco. Quando há métricas `VGV acumulado`, elas são usadas para os comparativos `9M`; quando falta histórico, o campo correspondente retorna `null` e `missing_history` lista os períodos ausentes.
+A API de conjuntura calcula percentuais a partir dos valores absolutos gravados no banco. Quando há métricas `VGV acumulado`, elas são usadas para os comparativos `9M` e aparecem em `accumulated_lineage`; quando falta histórico, o campo correspondente retorna `null` e `missing_history` lista os períodos ausentes.
 
 Exemplos após carregar as fixtures:
 

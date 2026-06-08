@@ -40,6 +40,11 @@ def _metric_key(row: dict[str, Any]) -> tuple[str, str, int, int]:
     )
 
 
+def _lineage_key(row: dict[str, Any]) -> tuple[str, str, int, int, str]:
+    company_code, category, year, quarter = _metric_key(row)
+    return (company_code, category, year, quarter, row["metric_name"])
+
+
 def _is_ytd_metric(row: dict[str, Any]) -> bool:
     return row.get("metric_name") == YTD_VGV_METRIC
 
@@ -109,7 +114,7 @@ def _missing_periods_for_company(
 def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter: int) -> dict[str, Any]:
     values: dict[tuple[str, str, int, int], Decimal] = {}
     ytd_values: dict[tuple[str, str, int, int], Decimal] = {}
-    lineage: dict[tuple[str, str, int, int], list[dict[str, Any]]] = defaultdict(list)
+    lineage: dict[tuple[str, str, int, int, str], list[dict[str, Any]]] = defaultdict(list)
 
     for row in rows:
         if row.get("metric_name") not in {QUARTERLY_VGV_METRIC, YTD_VGV_METRIC}:
@@ -123,7 +128,7 @@ def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter:
             ytd_values[key] = ytd_values.get(key, Decimal("0")) + value
         else:
             values[key] = values.get(key, Decimal("0")) + value
-        lineage[key].append(
+        lineage[_lineage_key(row)].append(
             {
                 "document_hash": row.get("pdf_hash"),
                 "source_url": row.get("source_url"),
@@ -191,7 +196,8 @@ def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter:
                         year=year,
                         quarter=quarter,
                     ),
-                    "lineage": lineage.get((company_code, category, year, quarter), []),
+                    "lineage": lineage.get((company_code, category, year, quarter, QUARTERLY_VGV_METRIC), []),
+                    "accumulated_lineage": lineage.get((company_code, category, year, quarter, YTD_VGV_METRIC), []),
                 }
             )
 

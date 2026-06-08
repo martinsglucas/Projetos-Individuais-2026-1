@@ -70,6 +70,11 @@ Validação atual:
 - API validada com dados reais persistidos:
   - `/api/metrics?empresa=CURY&ano=2025&trimestre=3` retornou 4 métricas com lineage;
   - `/api/conjuntura?ano=2025&trimestre=3` retornou Cury em lançamentos/vendas e percentuais `null` por falta de histórico.
+- Cury 3T25 reprocessada com fixture expandida:
+  - 12 métricas persistidas;
+  - percentuais de trimestre anterior, mesmo trimestre do ano anterior e acumulado atual calculados;
+  - `missing_history` preserva a ausência de 9M23 para `acumulado_ano_anterior`;
+  - lineage trimestral separado de `accumulated_lineage`.
 - O ambiente Codex atual não consegue acessar o socket Docker nem as portas locais dos containers, então testes integrados com Docker devem ser executados no terminal local do usuário.
 
 Próximos itens críticos:
