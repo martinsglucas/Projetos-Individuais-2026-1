@@ -55,7 +55,7 @@ Implementado nesta branch:
 
 Validação atual:
 
-- `pytest`: 27 testes passaram.
+- `pytest`: 28 testes passaram.
 - Smoke integrado com Postgres, MinIO e fixture MRV 1T25 executado com sucesso no terminal local:
   - `postgres=ok`;
   - `schema=ok`;

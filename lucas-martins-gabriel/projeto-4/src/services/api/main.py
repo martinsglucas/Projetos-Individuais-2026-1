@@ -6,9 +6,42 @@ from typing import Any
 from fastapi import FastAPI, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel, ConfigDict
 
 from db import UdaRepository
 from services.api.conjuntura import build_conjuntura_response
+
+
+class HealthResponse(BaseModel):
+    status: str
+
+
+class CompaniesResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    companies: list[dict[str, Any]]
+
+
+class DocumentsResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    documents: list[dict[str, Any]]
+
+
+class MetricsResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    metrics: list[dict[str, Any]]
+
+
+class ConjunturaResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    ano: int
+    trimestre: int
+    periodo: str
+    metricas: dict[str, Any]
+    metadata: dict[str, Any]
 
 app = FastAPI(
     title="UDA Conjuntura API",
@@ -35,18 +68,18 @@ def json_response(payload: Any) -> JSONResponse:
     )
 
 
-@app.get("/health", tags=["health"], summary="Verifica se a API esta disponivel")
+@app.get("/health", tags=["health"], summary="Verifica se a API esta disponivel", response_model=HealthResponse)
 def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
-@app.get("/api/companies", tags=["catalog"], summary="Lista empresas cadastradas")
+@app.get("/api/companies", tags=["catalog"], summary="Lista empresas cadastradas", response_model=CompaniesResponse)
 def list_companies() -> JSONResponse:
     repo = UdaRepository()
     return json_response({"companies": repo.list_companies()})
 
 
-@app.get("/api/documents", tags=["catalog"], summary="Lista documentos processados")
+@app.get("/api/documents", tags=["catalog"], summary="Lista documentos processados", response_model=DocumentsResponse)
 def list_documents(
     empresa: str | None = Query(default=None, description="Codigo da empresa, por exemplo MRV ou CURY."),
     ano: int | None = Query(default=None, ge=2000, le=2100, description="Ano do periodo do documento."),
@@ -57,7 +90,7 @@ def list_documents(
     return json_response({"documents": documents})
 
 
-@app.get("/api/metrics", tags=["metrics"], summary="Lista metricas extraidas")
+@app.get("/api/metrics", tags=["metrics"], summary="Lista metricas extraidas", response_model=MetricsResponse)
 def list_metrics(
     empresa: str | None = Query(default=None, description="Codigo da empresa, por exemplo MRV ou CURY."),
     ano: int | None = Query(default=None, ge=2000, le=2100, description="Ano da metrica."),
@@ -69,7 +102,12 @@ def list_metrics(
     return json_response({"metrics": metrics})
 
 
-@app.get("/api/conjuntura", tags=["conjuntura"], summary="Retorna a visao de conjuntura por periodo")
+@app.get(
+    "/api/conjuntura",
+    tags=["conjuntura"],
+    summary="Retorna a visao de conjuntura por periodo",
+    response_model=ConjunturaResponse,
+)
 def get_conjuntura(
     ano: int = Query(ge=2000, le=2100, description="Ano de referencia do boletim."),
     trimestre: int = Query(ge=1, le=4, description="Trimestre de referencia do boletim."),

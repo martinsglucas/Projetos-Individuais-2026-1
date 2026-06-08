@@ -32,7 +32,7 @@ PYTHONPATH=. .venv/bin/python -m pytest tests -q
 Resultado:
 
 ```text
-27 passed in 5.95s
+28 passed in 6.15s
 ```
 
 ```bash

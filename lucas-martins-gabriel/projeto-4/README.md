@@ -284,4 +284,4 @@ Essa validacao e util para separar duas coisas: o formato do endpoint, que ja re
 PYTHONPATH=. python -m pytest tests -q
 ```
 
-Na última validação local, a suíte retornou `27 passed`.
+Na última validação local, a suíte retornou `28 passed`.

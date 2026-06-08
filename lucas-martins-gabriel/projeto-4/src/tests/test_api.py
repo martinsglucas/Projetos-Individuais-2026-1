@@ -37,3 +37,16 @@ def test_conjuntura_endpoint_uses_repository(monkeypatch) -> None:
     assert '"empresa":"MRV"' in payload
     assert '"x_trimestre_anterior_pct":20.0' in payload
     assert '"x_mesmo_trimestre_ano_anterior_pct":50.0' in payload
+
+
+def test_openapi_documents_main_response_models() -> None:
+    schema = main.app.openapi()
+
+    assert "CompaniesResponse" in schema["components"]["schemas"]
+    assert "DocumentsResponse" in schema["components"]["schemas"]
+    assert "MetricsResponse" in schema["components"]["schemas"]
+    assert "ConjunturaResponse" in schema["components"]["schemas"]
+    response_schema = schema["paths"]["/api/conjuntura"]["get"]["responses"]["200"]["content"]["application/json"][
+        "schema"
+    ]
+    assert response_schema["$ref"] == "#/components/schemas/ConjunturaResponse"
