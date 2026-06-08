@@ -85,6 +85,17 @@ PYTHONPATH=. python -m services.extractor.run_pipeline \
   --fixture data/validated/mrv_1t25_fixture_metrics.json
 ```
 
+Segundo layout, Cury 3T25:
+
+```bash
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/cury_3t25.pdf \
+  --company CURY \
+  --period 3T25 \
+  --source-url https://ri.cury.net/informacoes-aos-investidores/central-de-resultados/ \
+  --fixture data/validated/cury_3t25_fixture_metrics.json
+```
+
 ## Polling
 
 Executa uma varredura das fontes cadastradas no banco:

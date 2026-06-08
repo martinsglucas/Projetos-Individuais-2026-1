@@ -1,0 +1,106 @@
+{
+  "company": "CURY",
+  "period": {
+    "year": 2025,
+    "quarter": 3
+  },
+  "report_type": "operational_preview",
+  "metrics": [
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL",
+      "value": 1986.4,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.986,4 MILHÕES",
+        "raw_text": "Lançamentos | VGV (R$ milhões) | 3T25 | 1.986,4",
+        "table_label": "Lançamentos"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL",
+      "value": 1827.0,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.827,0 milhões",
+        "raw_text": "Vendas Líquidas (R$ milhões VGV) | 3T25 | 1.827,0",
+        "table_label": "Vendas, %VSO"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "production",
+      "metric_name": "Unidades",
+      "segment": "TOTAL",
+      "value": 4908,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "is_estimated": false,
+      "confidence": 0.9,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "4.908 UNIDADES",
+        "raw_text": "Produção | Unidades Produzidas | 3T25 | 4.908",
+        "table_label": "Produção"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "TOTAL",
+      "value": 23344.2,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.9,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 23.344,2 MILHÕES EM VGV POTENCIAL",
+        "raw_text": "Banco de Terrenos (VGV, R$ milhões) | 3T25 | 23.344,2",
+        "table_label": "Banco de Terrenos"
+      }
+    }
+  ],
+  "missing_relevant_fields": [],
+  "extraction_notes": [
+    "Fixture manual criada a partir do markdown parseado da Prévia Operacional Cury 3T25 para validar segundo layout sem chamada LLM."
+  ]
+}

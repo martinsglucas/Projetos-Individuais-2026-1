@@ -42,6 +42,7 @@ Implementado nesta branch:
 - storage de artefatos com MinIO como backend principal e filesystem como fallback;
 - polling agendável em `services.ingestion.poll_sources`;
 - descoberta de prévias operacionais MRV/Cury via API pública MZIQ File Manager;
+- amostra Cury 3T25 baixada, parseada e validada como segundo layout;
 - API FastAPI com `/health`, `/api/companies`, `/api/documents`, `/api/metrics` e `/api/conjuntura`;
 - cálculo dos comparativos do boletim a partir de valores absolutos;
 - testes unitários de contratos, LLM, filtro de chunks e cálculo de conjuntura.
@@ -56,7 +57,7 @@ Próximos itens críticos:
 
 - subir Postgres e MinIO para testar o fluxo ponta a ponta;
 - processar MRV com fixture e depois com LLM real;
-- coletar/processar Cury ou Pacaembu para validar segundo layout;
+- executar Cury 3T25 pelo pipeline persistente com fixture e depois com LLM real;
 - completar evidências e README final de submissão.
 
 ## 2. Estado atual do projeto
@@ -108,7 +109,7 @@ Próximos itens críticos:
 
 ### Ainda não implementado
 
-- Demonstração com pelo menos dois layouts diferentes de empresas/documentos.
+- Persistência ponta a ponta de dois layouts diferentes no banco.
 - Execução ponta a ponta completa com Postgres, MinIO e LLM real.
 - Teste de polling contra MRV/Cury em rede.
 - Download/processamento integrado dos PDFs descobertos por polling em ambiente com Docker acessível.
