@@ -63,6 +63,10 @@ Validação atual:
   - artefatos bruto e markdown salvos no MinIO;
   - documento, chunks, run e 4 métricas persistidos no Postgres;
   - segundo layout validado de ponta a ponta com fixture.
+- Fixture Cury 3T25 expandida com histórico extraído do mesmo PDF:
+  - valores trimestrais de `2T25` e `3T24`;
+  - valores acumulados `9M25` e `9M24` como `VGV acumulado`;
+  - API de conjuntura atualizada para usar acumulados quando disponíveis.
 - API validada com dados reais persistidos:
   - `/api/metrics?empresa=CURY&ano=2025&trimestre=3` retornou 4 métricas com lineage;
   - `/api/conjuntura?ano=2025&trimestre=3` retornou Cury em lançamentos/vendas e percentuais `null` por falta de histórico.
@@ -72,7 +76,8 @@ Próximos itens críticos:
 
 - processar MRV com LLM real;
 - executar MRV/Cury com LLM real quando quiser validar a chamada externa;
-- carregar histórico adicional para obter percentuais do boletim em vez de `null`;
+- reprocessar Cury 3T25 com `--force` para atualizar o banco com os valores históricos da fixture expandida;
+- carregar mais histórico ou acumulados para obter todos os percentuais do boletim em vez de `null`;
 - completar evidências e README final de submissão.
 
 ## 2. Estado atual do projeto

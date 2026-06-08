@@ -33,6 +33,98 @@
       "company": "CURY",
       "period": {
         "year": 2025,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL",
+      "value": 2225.3,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.986,4 MILHÕES",
+        "raw_text": "Lançamentos | VGV (R$ milhões) | 2T25 | 2.225,3",
+        "table_label": "Lançamentos"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL",
+      "value": 1560.7,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.986,4 MILHÕES",
+        "raw_text": "Lançamentos | VGV (R$ milhões) | 3T24 | 1.560,7",
+        "table_label": "Lançamentos"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL",
+      "value": 6995.2,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.986,4 MILHÕES",
+        "raw_text": "Lançamentos | VGV (R$ milhões) | 9M25 | 6.995,2",
+        "table_label": "Lançamentos"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL",
+      "value": 5179.7,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.986,4 MILHÕES",
+        "raw_text": "Lançamentos | VGV (R$ milhões) | 9M24 | 5.179,7",
+        "table_label": "Lançamentos"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
         "quarter": 3
       },
       "category": "sales",
@@ -49,6 +141,98 @@
         "chunk_id": null,
         "heading": "R$ 1.827,0 milhões",
         "raw_text": "Vendas Líquidas (R$ milhões VGV) | 3T25 | 1.827,0",
+        "table_label": "Vendas, %VSO"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL",
+      "value": 2261.4,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.827,0 milhões",
+        "raw_text": "Vendas Líquidas (R$ milhões VGV) | 2T25 | 2.261,4",
+        "table_label": "Vendas, %VSO"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL",
+      "value": 1437.2,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.827,0 milhões",
+        "raw_text": "Vendas Líquidas (R$ milhões VGV) | 3T24 | 1.437,2",
+        "table_label": "Vendas, %VSO"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL",
+      "value": 6194.0,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.827,0 milhões",
+        "raw_text": "Vendas Líquidas (R$ milhões VGV) | 9M25 | 6.194,0",
+        "table_label": "Vendas, %VSO"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL",
+      "value": 4738.5,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "R$ 1.827,0 milhões",
+        "raw_text": "Vendas Líquidas (R$ milhões VGV) | 9M24 | 4.738,5",
         "table_label": "Vendas, %VSO"
       }
     },

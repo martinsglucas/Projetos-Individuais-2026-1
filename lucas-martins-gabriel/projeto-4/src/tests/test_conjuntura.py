@@ -57,3 +57,35 @@ def test_build_conjuntura_response_explains_missing_quarter_comparisons() -> Non
     assert company["x_mesmo_trimestre_ano_anterior_pct"] is None
     assert company["missing_history"]["x_trimestre_anterior"] == ["2T25"]
     assert company["missing_history"]["x_mesmo_trimestre_ano_anterior"] == ["3T24"]
+
+
+def test_build_conjuntura_response_uses_ytd_metrics_when_available() -> None:
+    rows = [
+        {"company_code": "CURY", "category": "sales", "metric_name": "VGV", "year": 2025, "quarter": 3, "value": 1827.0},
+        {"company_code": "CURY", "category": "sales", "metric_name": "VGV", "year": 2025, "quarter": 2, "value": 2261.4},
+        {"company_code": "CURY", "category": "sales", "metric_name": "VGV", "year": 2024, "quarter": 3, "value": 1437.2},
+        {
+            "company_code": "CURY",
+            "category": "sales",
+            "metric_name": "VGV acumulado",
+            "year": 2025,
+            "quarter": 3,
+            "value": 6194.0,
+        },
+        {
+            "company_code": "CURY",
+            "category": "sales",
+            "metric_name": "VGV acumulado",
+            "year": 2024,
+            "quarter": 3,
+            "value": 4738.5,
+        },
+    ]
+
+    response = build_conjuntura_response(rows, year=2025, quarter=3)
+    company = response["metricas"]["vendas"]["empresas"][0]
+
+    assert company["x_trimestre_anterior_pct"] == Decimal("-19.2")
+    assert company["x_mesmo_trimestre_ano_anterior_pct"] == Decimal("27.1")
+    assert company["acumulado_ano_atual_pct"] == Decimal("30.7")
+    assert "acumulado_ano_atual" not in company["missing_history"]

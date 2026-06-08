@@ -100,6 +100,19 @@ PYTHONPATH=. python -m services.extractor.run_pipeline \
   --no-persist-raw
 ```
 
+Para atualizar o banco depois de alterar a fixture, use `--force`:
+
+```bash
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/cury_3t25.pdf \
+  --company CURY \
+  --period 3T25 \
+  --source-url https://ri.cury.net/informacoes-aos-investidores/central-de-resultados/ \
+  --fixture data/validated/cury_3t25_fixture_metrics.json \
+  --no-persist-raw \
+  --force
+```
+
 ## Polling
 
 Executa uma varredura das fontes cadastradas no banco:
@@ -139,7 +152,7 @@ GET /api/conjuntura?ano=2025&trimestre=3
 GET /api/conjuntura?empresa=MRV&ano=2025&trimestre=3
 ```
 
-A API de conjuntura calcula percentuais a partir dos valores absolutos gravados no banco. Quando falta histórico para algum comparativo, o campo correspondente retorna `null` e `missing_history` lista os períodos ausentes.
+A API de conjuntura calcula percentuais a partir dos valores absolutos gravados no banco. Quando há métricas `VGV acumulado`, elas são usadas para os comparativos `9M`; quando falta histórico, o campo correspondente retorna `null` e `missing_history` lista os períodos ausentes.
 
 Exemplos após carregar as fixtures:
 

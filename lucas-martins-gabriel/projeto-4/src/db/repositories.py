@@ -254,7 +254,7 @@ class UdaRepository:
             "m.year BETWEEN %s AND %s",
             "m.quarter BETWEEN 1 AND %s",
             "m.category::text = ANY(%s)",
-            "m.metric_name = 'VGV'",
+            "m.metric_name IN ('VGV', 'VGV acumulado')",
             "(m.segment IS NULL OR upper(m.segment) IN ('TOTAL INCORPORACAO', 'TOTAL INCORPORAÇÃO', 'TOTAL'))",
         ]
         params: list[Any] = [start_year, year, quarter, list(categories)]

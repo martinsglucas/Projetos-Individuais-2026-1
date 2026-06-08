@@ -9,6 +9,8 @@ BOLETIM_CATEGORIES = {
     "lancamentos": "launches",
     "vendas": "sales",
 }
+QUARTERLY_VGV_METRIC = "VGV"
+YTD_VGV_METRIC = "VGV acumulado"
 
 
 def previous_quarter(year: int, quarter: int) -> tuple[int, int]:
@@ -38,6 +40,10 @@ def _metric_key(row: dict[str, Any]) -> tuple[str, str, int, int]:
     )
 
 
+def _is_ytd_metric(row: dict[str, Any]) -> bool:
+    return row.get("metric_name") == YTD_VGV_METRIC
+
+
 def _sum_period(
     values: dict[tuple[str, str, int, int], Decimal],
     *,
@@ -61,6 +67,7 @@ def _period_label(year: int, quarter: int) -> str:
 
 def _missing_periods_for_company(
     values: dict[tuple[str, str, int, int], Decimal],
+    ytd_values: dict[tuple[str, str, int, int], Decimal],
     *,
     company_code: str,
     category: str,
@@ -82,32 +89,40 @@ def _missing_periods_for_company(
     if (company_code, category, year - 1, quarter) not in values:
         missing["x_mesmo_trimestre_ano_anterior"].append(_period_label(year - 1, quarter))
 
-    for ytd_quarter in ytd_quarters:
-        if (company_code, category, year - 1, ytd_quarter) not in values:
-            missing["acumulado_ano_anterior"].append(_period_label(year - 1, ytd_quarter))
-        if (company_code, category, year - 2, ytd_quarter) not in values:
-            missing["acumulado_ano_anterior"].append(_period_label(year - 2, ytd_quarter))
-        if (company_code, category, year, ytd_quarter) not in values:
-            missing["acumulado_ano_atual"].append(_period_label(year, ytd_quarter))
-        if (company_code, category, year - 1, ytd_quarter) not in values:
-            missing["acumulado_ano_atual"].append(_period_label(year - 1, ytd_quarter))
+    if (company_code, category, year - 1, quarter) not in ytd_values:
+        for ytd_quarter in ytd_quarters:
+            if (company_code, category, year - 1, ytd_quarter) not in values:
+                missing["acumulado_ano_anterior"].append(_period_label(year - 1, ytd_quarter))
+                missing["acumulado_ano_atual"].append(_period_label(year - 1, ytd_quarter))
+    if (company_code, category, year - 2, quarter) not in ytd_values:
+        for ytd_quarter in ytd_quarters:
+            if (company_code, category, year - 2, ytd_quarter) not in values:
+                missing["acumulado_ano_anterior"].append(_period_label(year - 2, ytd_quarter))
+    if (company_code, category, year, quarter) not in ytd_values:
+        for ytd_quarter in ytd_quarters:
+            if (company_code, category, year, ytd_quarter) not in values:
+                missing["acumulado_ano_atual"].append(_period_label(year, ytd_quarter))
 
     return {key: sorted(set(periods)) for key, periods in missing.items() if periods}
 
 
 def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter: int) -> dict[str, Any]:
     values: dict[tuple[str, str, int, int], Decimal] = {}
+    ytd_values: dict[tuple[str, str, int, int], Decimal] = {}
     lineage: dict[tuple[str, str, int, int], list[dict[str, Any]]] = defaultdict(list)
 
     for row in rows:
-        if row.get("metric_name") != "VGV":
+        if row.get("metric_name") not in {QUARTERLY_VGV_METRIC, YTD_VGV_METRIC}:
             continue
         value = _to_decimal(row.get("value"))
         if value is None:
             continue
 
         key = _metric_key(row)
-        values[key] = values.get(key, Decimal("0")) + value
+        if _is_ytd_metric(row):
+            ytd_values[key] = ytd_values.get(key, Decimal("0")) + value
+        else:
+            values[key] = values.get(key, Decimal("0")) + value
         lineage[key].append(
             {
                 "document_hash": row.get("pdf_hash"),
@@ -117,7 +132,7 @@ def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter:
             }
         )
 
-    companies = sorted({key[0] for key in values})
+    companies = sorted({key[0] for key in values} | {key[0] for key in ytd_values})
     previous_year, previous_q = previous_quarter(year, quarter)
     period_label = f"{quarter}T{str(year)[-2:]}"
     ytd_quarters = range(1, quarter + 1)
@@ -135,21 +150,21 @@ def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter:
             current = values.get((company_code, category, year, quarter))
             previous = values.get((company_code, category, previous_year, previous_q))
             same_last_year = values.get((company_code, category, year - 1, quarter))
-            ytd_current = _sum_period(
+            ytd_current = ytd_values.get((company_code, category, year, quarter)) or _sum_period(
                 values,
                 company_code=company_code,
                 category=category,
                 year=year,
                 quarters=ytd_quarters,
             )
-            ytd_last_year = _sum_period(
+            ytd_last_year = ytd_values.get((company_code, category, year - 1, quarter)) or _sum_period(
                 values,
                 company_code=company_code,
                 category=category,
                 year=year - 1,
                 quarters=ytd_quarters,
             )
-            ytd_two_years_ago = _sum_period(
+            ytd_two_years_ago = ytd_values.get((company_code, category, year - 2, quarter)) or _sum_period(
                 values,
                 company_code=company_code,
                 category=category,
@@ -170,6 +185,7 @@ def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter:
                     "acumulado_ano_atual_pct": percent_change(ytd_current, ytd_last_year),
                     "missing_history": _missing_periods_for_company(
                         values,
+                        ytd_values,
                         company_code=company_code,
                         category=category,
                         year=year,
@@ -181,7 +197,7 @@ def build_conjuntura_response(rows: list[dict[str, Any]], *, year: int, quarter:
 
         response["metricas"][output_name] = {
             "empresas": company_rows,
-            "total": _build_total(values, category=category, year=year, quarter=quarter),
+            "total": _build_total(values, ytd_values, category=category, year=year, quarter=quarter),
         }
 
     return response
@@ -221,6 +237,7 @@ def _total_ytd(
 
 def _build_total(
     values: dict[tuple[str, str, int, int], Decimal],
+    ytd_values: dict[tuple[str, str, int, int], Decimal],
     *,
     category: str,
     year: int,
@@ -231,16 +248,28 @@ def _build_total(
     current = _total_for(values, category=category, year=year, quarter=quarter)
     previous = _total_for(values, category=category, year=previous_year, quarter=previous_q)
     same_last_year = _total_for(values, category=category, year=year - 1, quarter=quarter)
-    ytd_current = _total_ytd(values, category=category, year=year, quarters=ytd_quarters)
-    ytd_last_year = _total_ytd(values, category=category, year=year - 1, quarters=ytd_quarters)
-    ytd_two_years_ago = _total_ytd(values, category=category, year=year - 2, quarters=ytd_quarters)
+    ytd_current = _total_for(ytd_values, category=category, year=year, quarter=quarter) or _total_ytd(
+        values, category=category, year=year, quarters=ytd_quarters
+    )
+    ytd_last_year = _total_for(ytd_values, category=category, year=year - 1, quarter=quarter) or _total_ytd(
+        values, category=category, year=year - 1, quarters=ytd_quarters
+    )
+    ytd_two_years_ago = _total_for(ytd_values, category=category, year=year - 2, quarter=quarter) or _total_ytd(
+        values, category=category, year=year - 2, quarters=ytd_quarters
+    )
 
     return {
         "x_trimestre_anterior_pct": percent_change(current, previous),
         "x_mesmo_trimestre_ano_anterior_pct": percent_change(current, same_last_year),
         "acumulado_ano_anterior_pct": percent_change(ytd_last_year, ytd_two_years_ago),
         "acumulado_ano_atual_pct": percent_change(ytd_current, ytd_last_year),
-        "missing_history": _missing_periods_for_total(values, category=category, year=year, quarter=quarter),
+        "missing_history": _missing_periods_for_total(
+            values,
+            ytd_values,
+            category=category,
+            year=year,
+            quarter=quarter,
+        ),
     }
 
 
@@ -256,6 +285,7 @@ def _has_total_for(
 
 def _missing_periods_for_total(
     values: dict[tuple[str, str, int, int], Decimal],
+    ytd_values: dict[tuple[str, str, int, int], Decimal],
     *,
     category: str,
     year: int,
@@ -276,14 +306,18 @@ def _missing_periods_for_total(
     if not _has_total_for(values, category=category, year=year - 1, quarter=quarter):
         missing["x_mesmo_trimestre_ano_anterior"].append(_period_label(year - 1, quarter))
 
-    for ytd_quarter in ytd_quarters:
-        if not _has_total_for(values, category=category, year=year - 1, quarter=ytd_quarter):
-            missing["acumulado_ano_anterior"].append(_period_label(year - 1, ytd_quarter))
-        if not _has_total_for(values, category=category, year=year - 2, quarter=ytd_quarter):
-            missing["acumulado_ano_anterior"].append(_period_label(year - 2, ytd_quarter))
-        if not _has_total_for(values, category=category, year=year, quarter=ytd_quarter):
-            missing["acumulado_ano_atual"].append(_period_label(year, ytd_quarter))
-        if not _has_total_for(values, category=category, year=year - 1, quarter=ytd_quarter):
-            missing["acumulado_ano_atual"].append(_period_label(year - 1, ytd_quarter))
+    if not _has_total_for(ytd_values, category=category, year=year - 1, quarter=quarter):
+        for ytd_quarter in ytd_quarters:
+            if not _has_total_for(values, category=category, year=year - 1, quarter=ytd_quarter):
+                missing["acumulado_ano_anterior"].append(_period_label(year - 1, ytd_quarter))
+                missing["acumulado_ano_atual"].append(_period_label(year - 1, ytd_quarter))
+    if not _has_total_for(ytd_values, category=category, year=year - 2, quarter=quarter):
+        for ytd_quarter in ytd_quarters:
+            if not _has_total_for(values, category=category, year=year - 2, quarter=ytd_quarter):
+                missing["acumulado_ano_anterior"].append(_period_label(year - 2, ytd_quarter))
+    if not _has_total_for(ytd_values, category=category, year=year, quarter=quarter):
+        for ytd_quarter in ytd_quarters:
+            if not _has_total_for(values, category=category, year=year, quarter=ytd_quarter):
+                missing["acumulado_ano_atual"].append(_period_label(year, ytd_quarter))
 
     return {key: sorted(set(periods)) for key, periods in missing.items() if periods}
