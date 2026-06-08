@@ -47,6 +47,12 @@ docker compose up -d
 psql postgresql://admin:admin@localhost:5432/uda -f db/001_initial_schema.sql
 ```
 
+Se preferir usar o `psql` dentro do container Postgres:
+
+```bash
+docker compose exec -T postgres psql -U admin -d uda < db/001_initial_schema.sql
+```
+
 Variáveis esperadas no `.env`:
 
 ```text
@@ -118,6 +124,8 @@ PYTHONPATH=. python scripts/smoke_integrated_pipeline.py --apply-schema
 Esse smoke valida Postgres, MinIO e pipeline com fixture sem sobrescrever os arquivos `llm_response_*.json` versionados.
 
 ## Pipeline local
+
+O argumento `--pdf` recebe um caminho local. O pipeline calcula o SHA-256 e faz o parsing a partir dos bytes locais; em seguida, ele salva o PDF bruto, o markdown parseado e a resposta da LLM no MinIO. Caminhos `minio://...` aparecem como artefatos de saída e linhagem, mas não são a entrada principal do orquestrador atual.
 
 Com LLM real:
 
@@ -206,6 +214,13 @@ PYTHONPATH=. python -m services.ingestion.poll_sources --loop --interval-hours 2
 PYTHONPATH=. uvicorn services.api.main:app --reload --port 8000
 ```
 
+Swagger/OpenAPI:
+
+```text
+http://localhost:8000/docs
+http://localhost:8000/openapi.json
+```
+
 Endpoints principais:
 
 ```text
@@ -229,10 +244,32 @@ curl "http://localhost:8000/api/conjuntura?ano=2025&trimestre=3"
 
 Validação integrada já executada para `3T25`: Cury e MRV retornam em `lancamentos` e `vendas`, com totais agregados, linhagem trimestral em `lineage` e linhagem acumulada `9M` em `accumulated_lineage`.
 
+## Filtro semântico
+
+O filtro de chunks em `services/extractor/chunk_filter.py` e uma etapa deterministica de pre-selecao de contexto. Ele prioriza trechos com tabelas, periodo alvo e termos como `dados operacionais`, `lancamentos`, `vendas`, `vgv` e `producao`.
+
+A LLM continua responsavel pela extracao semantica final: interpretar o trecho, escolher as metricas corretas, preencher evidencias e respeitar o contrato Pydantic. Essa separacao reduz custo e latencia sem transformar o pipeline em extrator por coordenadas ou regex.
+
+## Validacao contra o boletim real
+
+O PDF `especificacao/boletim_conjuntura_3t25.pdf` contem percentuais de referencia para MRV e Cury. Para auditar o endpoint contra esse boletim:
+
+```bash
+PYTHONPATH=. python scripts/validate_conjuntura_against_boletim.py
+```
+
+Por padrao, o script imprime diferencas e retorna sucesso. Para falhar quando houver divergencia:
+
+```bash
+PYTHONPATH=. python scripts/validate_conjuntura_against_boletim.py --strict
+```
+
+Essa validacao e util para separar duas coisas: o formato do endpoint, que ja reproduz os blocos de `lancamentos` e `vendas`, e a aderencia numerica ao boletim oficial. Divergencias podem ocorrer quando o PDF da empresa usa recortes diferentes dos usados no boletim, por exemplo `TOTAL INCORPORACAO`, `MRV`, `Parte Cury` ou valores reapresentados.
+
 ## Testes
 
 ```bash
 PYTHONPATH=. python -m pytest tests -q
 ```
 
-Na última validação local, a suíte retornou `19 passed`.
+Na última validação local, a suíte retornou `23 passed`.

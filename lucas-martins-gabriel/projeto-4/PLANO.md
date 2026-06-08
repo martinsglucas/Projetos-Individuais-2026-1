@@ -44,14 +44,17 @@ Implementado nesta branch:
 - descoberta de prévias operacionais MRV/Cury via API pública MZIQ File Manager;
 - amostra Cury 3T25 baixada, parseada e validada como segundo layout;
 - API FastAPI com `/health`, `/api/companies`, `/api/documents`, `/api/metrics` e `/api/conjuntura`;
+- Swagger/OpenAPI automatico em `/docs` e `/openapi.json`, com tags e descricoes dos endpoints;
 - cálculo dos comparativos do boletim a partir de valores absolutos;
 - testes unitários de contratos, LLM, filtro de chunks, storage, ingestão e cálculo de conjuntura;
 - smoke integrado em `src/scripts/smoke_integrated_pipeline.py`.
 - README final com evidências de atendimento aos requisitos, comandos de reprodução e testes.
+- matriz `VALIDACAO.md` contra a especificação;
+- script `scripts/validate_conjuntura_against_boletim.py` para auditar o endpoint contra o PDF de boletim real.
 
 Validação atual:
 
-- `pytest`: 19 testes passaram.
+- `pytest`: 23 testes passaram.
 - Smoke integrado com Postgres, MinIO e fixture MRV 1T25 executado com sucesso no terminal local:
   - `postgres=ok`;
   - `schema=ok`;
@@ -86,8 +89,9 @@ Validação atual:
 
 Próximos itens críticos:
 
-- repetir a extração MRV/Cury com LLM real quando o Gemini não estiver retornando `503`;
+- repetir a extração MRV/Cury com LLM real quando o Gemini `flash` não estiver retornando `503`, ou usar `flash-lite` com fallback;
 - opcionalmente carregar mais histórico para calcular `acumulado_ano_anterior_pct`, que hoje retorna `null` quando faltam dados `9M23`;
+- investigar divergências numéricas contra o boletim real quando o boletim usar recortes diferentes dos PDFs de empresa processados;
 - revisar a submissão/PR final.
 
 ## 2. Estado atual do projeto
@@ -126,24 +130,26 @@ Próximos itens críticos:
 - Polling agendável em `src/services/ingestion/poll_sources.py`.
 - API REST em `src/services/api/main.py`.
 - Cálculo de conjuntura em `src/services/api/conjuntura.py`.
+- Swagger/OpenAPI automatico do FastAPI, documentado no README.
 - Testes automatizados em `src/tests/`.
 - Fixture validada para MRV 1T25 em `src/data/validated/mrv_1t25_fixture_metrics.json`.
+- Fixtures validadas para MRV 3T25 e Cury 3T25 com métricas trimestrais e acumuladas.
 - PDFs e markdowns de MRV já armazenados em `src/data/`.
+- Validação contra boletim real em `src/scripts/validate_conjuntura_against_boletim.py`.
 
 ### Parcialmente implementado
 
-- Idempotência: o orquestrador local e o polling consultam hash antes de reprocessar, mas ainda falta validar esse comportamento com Postgres real rodando.
-- Linhagem: o schema e os contratos suportam URL, hash, chunk, evidência, storage e execução; ainda falta validar preenchimento em execução ponta a ponta com PDFs reais.
-- MinIO: a camada foi implementada, mas ainda falta teste integrado com o container MinIO.
-- API REST: implementada e coberta por teste unitário direto dos endpoints.
+- Extração com LLM real: o provider Gemini está implementado, com retry, fallback e normalização controlada de aliases; a execução real ainda depende da disponibilidade do modelo. O `gemini-2.5-flash` retornou `503 UNAVAILABLE` em tentativas recentes, enquanto `gemini-2.5-flash-lite` respondeu em teste mínimo.
+- Validação numérica contra o boletim real: o formato do endpoint reproduz os blocos de lançamentos/vendas, mas a aderência percentual depende do mesmo recorte usado pelo boletim. O script de auditoria explicita diferenças entre API e PDF de referência.
+- Entrada direta por MinIO: o pipeline grava e registra artefatos no MinIO, mas o `run_pipeline --pdf` ainda recebe caminho local. Caminhos `minio://...` são usados como saída/linhagem; aceitar `minio://...` como entrada ficaria como melhoria futura.
+- Histórico completo: o endpoint calcula comparativos quando há dados suficientes e retorna `missing_history` quando faltam períodos como `9M23`.
 
 ### Ainda não implementado
 
-- Persistência ponta a ponta de dois layouts diferentes no banco.
-- Execução ponta a ponta completa com Postgres, MinIO e LLM real.
-- Teste de polling contra MRV/Cury em rede.
-- Download/processamento integrado dos PDFs descobertos por polling em ambiente com Docker acessível.
-- Evidências finais para submissão.
+- Reprocessamento final de MRV/Cury com LLM real em modelo estável, substituindo fixtures por resposta bruta da LLM quando a API estiver disponível.
+- Suporte a entrada `minio://...` no `run_pipeline`, caso se deseje reprocessar artefatos já armazenados sem arquivo local.
+- Coleta de histórico adicional para preencher todos os percentuais do boletim, incluindo `9M23`.
+- Ajuste fino dos recortes de empresa/segmento para bater numericamente com o boletim oficial quando o boletim não usar o mesmo segmento extraído do PDF.
 
 ## 2.1. Comandos de validação integrada pendentes
 
@@ -152,6 +158,7 @@ Rodar no terminal local, onde Docker está acessível:
 ```bash
 cd lucas-martins-gabriel/projeto-4/src
 docker compose up -d
+docker compose exec -T postgres psql -U admin -d uda < db/001_initial_schema.sql
 PYTHONPATH=. python scripts/smoke_integrated_pipeline.py --apply-schema
 PYTHONPATH=. uvicorn services.api.main:app --port 8000
 ```
@@ -161,6 +168,7 @@ Depois consultar:
 ```bash
 curl "http://localhost:8000/api/metrics?empresa=MRV&ano=2025&trimestre=1"
 curl "http://localhost:8000/api/conjuntura?empresa=MRV&ano=2025&trimestre=1"
+PYTHONPATH=. python scripts/validate_conjuntura_against_boletim.py
 ```
 
 ## 3. Plano de implementação
