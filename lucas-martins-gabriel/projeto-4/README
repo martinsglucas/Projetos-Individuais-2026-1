@@ -57,6 +57,12 @@ Para desenvolvimento sem MinIO, use:
 export ARTIFACT_STORAGE_BACKEND=filesystem
 ```
 
+Smoke integrado com Postgres, MinIO e fixture offline:
+
+```bash
+PYTHONPATH=. python scripts/smoke_integrated_pipeline.py --apply-schema
+```
+
 ## Pipeline local
 
 Com LLM real:

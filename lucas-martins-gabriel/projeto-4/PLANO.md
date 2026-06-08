@@ -44,6 +44,7 @@ Implementado nesta branch:
 - API FastAPI com `/health`, `/api/companies`, `/api/documents`, `/api/metrics` e `/api/conjuntura`;
 - cálculo dos comparativos do boletim a partir de valores absolutos;
 - testes unitários de contratos, LLM, filtro de chunks e cálculo de conjuntura.
+- smoke integrado em `src/scripts/smoke_integrated_pipeline.py`.
 
 Validação atual:
 
@@ -118,12 +119,7 @@ Rodar no terminal local, onde Docker está acessível:
 ```bash
 cd lucas-martins-gabriel/projeto-4/src
 docker compose up -d
-psql postgresql://admin:admin@localhost:5432/uda -f db/001_initial_schema.sql
-PYTHONPATH=. python -m services.extractor.run_pipeline \
-  --pdf data/raw/mrv_1t25.pdf \
-  --company MRV \
-  --period 1T25 \
-  --fixture data/validated/mrv_1t25_fixture_metrics.json
+PYTHONPATH=. python scripts/smoke_integrated_pipeline.py --apply-schema
 PYTHONPATH=. uvicorn services.api.main:app --port 8000
 ```
 
