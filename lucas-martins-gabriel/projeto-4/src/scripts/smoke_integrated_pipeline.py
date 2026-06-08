@@ -67,6 +67,7 @@ def run_fixture_pipeline() -> None:
         model_name="fixture",
         fixture_path=SRC_ROOT / "data" / "validated" / "mrv_1t25_fixture_metrics.json",
         force=True,
+        persist_raw=False,
     )
     print("fixture_pipeline=ok")
 

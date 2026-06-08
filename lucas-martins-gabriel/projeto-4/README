@@ -63,6 +63,8 @@ Smoke integrado com Postgres, MinIO e fixture offline:
 PYTHONPATH=. python scripts/smoke_integrated_pipeline.py --apply-schema
 ```
 
+Esse smoke valida Postgres, MinIO e pipeline com fixture sem sobrescrever os arquivos `llm_response_*.json` versionados.
+
 ## Pipeline local
 
 Com LLM real:

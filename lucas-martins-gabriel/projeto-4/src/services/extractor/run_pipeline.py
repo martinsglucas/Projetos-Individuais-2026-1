@@ -20,6 +20,7 @@ def run_pipeline(
     model_name: str,
     fixture_path: Path | None = None,
     force: bool = False,
+    persist_raw: bool = True,
 ) -> None:
     repo = UdaRepository()
     pdf_hash = calculate_sha256(pdf_path)
@@ -54,6 +55,7 @@ def run_pipeline(
         document_hash=pdf_hash,
         model_name=model_name,
         fixture_path=fixture_path,
+        persist_raw=persist_raw,
     )
 
 
@@ -65,6 +67,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--source-url", default=None)
     parser.add_argument("--model", default="gemini-2.5-flash")
     parser.add_argument("--fixture", default=None, help="JSON fixture for offline extraction tests.")
+    parser.add_argument("--no-persist-raw", action="store_true")
     parser.add_argument("--force", action="store_true", help="Reprocess even when the hash already exists.")
     parser.add_argument(
         "--report-type",
@@ -86,6 +89,7 @@ def main() -> None:
         model_name=args.model,
         fixture_path=Path(args.fixture).resolve() if args.fixture else None,
         force=args.force,
+        persist_raw=not args.no_persist_raw,
     )
 
 

@@ -45,18 +45,24 @@ Implementado nesta branch:
 - amostra Cury 3T25 baixada, parseada e validada como segundo layout;
 - API FastAPI com `/health`, `/api/companies`, `/api/documents`, `/api/metrics` e `/api/conjuntura`;
 - cálculo dos comparativos do boletim a partir de valores absolutos;
-- testes unitários de contratos, LLM, filtro de chunks e cálculo de conjuntura.
+- testes unitários de contratos, LLM, filtro de chunks, storage, ingestão e cálculo de conjuntura;
 - smoke integrado em `src/scripts/smoke_integrated_pipeline.py`.
 
 Validação atual:
 
-- `pytest`: 14 testes passaram.
-- O ambiente Codex atual não conseguiu acessar o socket Docker, então a validação integrada Postgres/MinIO precisa ser rodada no terminal local do usuário.
+- `pytest`: 15 testes passaram.
+- Smoke integrado com Postgres, MinIO e fixture MRV 1T25 executado com sucesso no terminal local:
+  - `postgres=ok`;
+  - `schema=ok`;
+  - `minio=ok bucket=uda-artifacts`;
+  - PDF MRV 1T25 parseado em 9 chunks;
+  - artefatos bruto, markdown e JSON salvos no MinIO;
+  - documento, chunks, run e 3 métricas persistidos no Postgres.
+- O ambiente Codex atual não consegue acessar o socket Docker nem as portas locais dos containers, então testes integrados com Docker devem ser executados no terminal local do usuário.
 
 Próximos itens críticos:
 
-- subir Postgres e MinIO para testar o fluxo ponta a ponta;
-- processar MRV com fixture e depois com LLM real;
+- processar MRV com LLM real;
 - executar Cury 3T25 pelo pipeline persistente com fixture e depois com LLM real;
 - completar evidências e README final de submissão.
 
