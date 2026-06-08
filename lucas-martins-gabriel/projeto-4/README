@@ -26,6 +26,16 @@ Central de Resultados RI
 - MRV: https://ri.mrv.com.br/informacoes-financeiras/central-de-resultados/
 - Cury: https://ri.cury.net/informacoes-aos-investidores/central-de-resultados/
 
+## Atendimento aos requisitos
+
+- Extração automatizada: `services.ingestion.poll_sources` consulta as fontes cadastradas, descobre PDFs via HTML ou API MZIQ e pode rodar uma vez, por empresa, ou em loop agendável.
+- Idempotência: o pipeline calcula SHA-256 do PDF antes da extração e consulta o catálogo para evitar reprocessar documentos já extraídos, salvo quando `--force` é usado.
+- Processamento semântico: PDFs são convertidos para markdown com Docling, segmentados por headings e filtrados por relevância antes do prompt, reduzindo o contexto enviado ao LLM.
+- Contrato semântico: a resposta da LLM é validada por Pydantic em `contracts/uda.py`; valores ausentes devem ser `null` e métricas com valor precisam de unidade.
+- Catálogo e linhagem: Postgres registra empresas, fontes, documentos, chunks, execuções e métricas. Cada métrica guarda hash, URL, storage path e evidência textual.
+- API REST: FastAPI expõe consultas por empresa e período, incluindo `/api/conjuntura`.
+- Dois layouts validados: MRV `3T25` e Cury `3T25` foram parseados, persistidos e consultados pela API usando fixtures reprodutíveis.
+
 ## Setup local
 
 ```bash
@@ -86,6 +96,19 @@ PYTHONPATH=. python -m services.extractor.run_pipeline \
   --period 1T25 \
   --fixture data/validated/mrv_1t25_fixture_metrics.json \
   --no-persist-raw
+```
+
+MRV 3T25, no formato usado para a conjuntura:
+
+```bash
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/mrv_3t25.pdf \
+  --company MRV \
+  --period 3T25 \
+  --source-url "https://api.mziq.com/mzfilemanager/v2/d/4b56353d-d5d9-435f-bf63-dcbf0a6c25d5/2c084655-23f7-7c55-5ac7-f4b2ed930448?origin=2" \
+  --fixture data/validated/mrv_3t25_fixture_metrics.json \
+  --no-persist-raw \
+  --force
 ```
 
 Segundo layout, Cury 3T25:
@@ -163,3 +186,11 @@ curl "http://localhost:8000/api/conjuntura?ano=2025&trimestre=3"
 ```
 
 Validação integrada já executada para `3T25`: Cury e MRV retornam em `lancamentos` e `vendas`, com totais agregados, linhagem trimestral em `lineage` e linhagem acumulada `9M` em `accumulated_lineage`.
+
+## Testes
+
+```bash
+PYTHONPATH=. python -m pytest tests -q
+```
+
+Na última validação local, a suíte retornou `19 passed`.
