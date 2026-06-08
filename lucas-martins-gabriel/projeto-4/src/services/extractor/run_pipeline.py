@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import tempfile
+from contextlib import contextmanager
 from pathlib import Path
 
 from contracts import CompanyCode, Period, ReportType
@@ -8,6 +10,7 @@ from db import UdaRepository
 from services.extractor.extract_metrics import run_extraction
 from services.extractor.hash import calculate_sha256
 from services.extractor.process_pdf import DEFAULT_PARSED_DIR, load_dotenv_file, process_pdf, resolve_input_path
+from services.storage import MinioArtifactStorage, get_artifact_storage
 
 
 def run_pipeline(
@@ -77,20 +80,37 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+@contextmanager
+def materialize_pdf_input(value: str):
+    if not value.startswith("minio://"):
+        yield resolve_input_path(value)
+        return
+
+    storage = get_artifact_storage()
+    if not isinstance(storage, MinioArtifactStorage):
+        raise RuntimeError("minio:// input requires ARTIFACT_STORAGE_BACKEND=minio")
+
+    with tempfile.TemporaryDirectory(prefix="uda-pdf-") as tmp_dir:
+        output_path = Path(tmp_dir) / "input.pdf"
+        output_path.write_bytes(storage.get_uri_bytes(value))
+        yield output_path
+
+
 def main() -> None:
     load_dotenv_file()
     args = parse_args()
-    run_pipeline(
-        pdf_path=resolve_input_path(args.pdf),
-        company=CompanyCode(args.company),
-        period=Period.from_label(args.period),
-        source_url=args.source_url,
-        report_type=ReportType(args.report_type),
-        model_name=args.model,
-        fixture_path=Path(args.fixture).resolve() if args.fixture else None,
-        force=args.force,
-        persist_raw=not args.no_persist_raw,
-    )
+    with materialize_pdf_input(args.pdf) as pdf_path:
+        run_pipeline(
+            pdf_path=pdf_path,
+            company=CompanyCode(args.company),
+            period=Period.from_label(args.period),
+            source_url=args.source_url,
+            report_type=ReportType(args.report_type),
+            model_name=args.model,
+            fixture_path=Path(args.fixture).resolve() if args.fixture else None,
+            force=args.force,
+            persist_raw=not args.no_persist_raw,
+        )
 
 
 if __name__ == "__main__":

@@ -40,6 +40,7 @@ Implementado nesta branch:
 - provider Gemini migrado para `google-genai`;
 - orquestrador local `services.extractor.run_pipeline`;
 - storage de artefatos com MinIO como backend principal e filesystem como fallback;
+- leitura de PDF local ou `minio://...` no orquestrador `run_pipeline`;
 - polling agendável em `services.ingestion.poll_sources`;
 - descoberta de prévias operacionais MRV/Cury via API pública MZIQ File Manager;
 - amostra Cury 3T25 baixada, parseada e validada como segundo layout;
@@ -54,7 +55,7 @@ Implementado nesta branch:
 
 Validação atual:
 
-- `pytest`: 23 testes passaram.
+- `pytest`: 27 testes passaram.
 - Smoke integrado com Postgres, MinIO e fixture MRV 1T25 executado com sucesso no terminal local:
   - `postgres=ok`;
   - `schema=ok`;
@@ -141,13 +142,11 @@ Próximos itens críticos:
 
 - Extração com LLM real: o provider Gemini está implementado, com retry, fallback e normalização controlada de aliases; a execução real ainda depende da disponibilidade do modelo. O `gemini-2.5-flash` retornou `503 UNAVAILABLE` em tentativas recentes, enquanto `gemini-2.5-flash-lite` respondeu em teste mínimo.
 - Validação numérica contra o boletim real: o formato do endpoint reproduz os blocos de lançamentos/vendas, mas a aderência percentual depende do mesmo recorte usado pelo boletim. O script de auditoria explicita diferenças entre API e PDF de referência.
-- Entrada direta por MinIO: o pipeline grava e registra artefatos no MinIO, mas o `run_pipeline --pdf` ainda recebe caminho local. Caminhos `minio://...` são usados como saída/linhagem; aceitar `minio://...` como entrada ficaria como melhoria futura.
 - Histórico completo: o endpoint calcula comparativos quando há dados suficientes e retorna `missing_history` quando faltam períodos como `9M23`.
 
 ### Ainda não implementado
 
 - Reprocessamento final de MRV/Cury com LLM real em modelo estável, substituindo fixtures por resposta bruta da LLM quando a API estiver disponível.
-- Suporte a entrada `minio://...` no `run_pipeline`, caso se deseje reprocessar artefatos já armazenados sem arquivo local.
 - Coleta de histórico adicional para preencher todos os percentuais do boletim, incluindo `9M23`.
 - Ajuste fino dos recortes de empresa/segmento para bater numericamente com o boletim oficial quando o boletim não usar o mesmo segmento extraído do PDF.
 

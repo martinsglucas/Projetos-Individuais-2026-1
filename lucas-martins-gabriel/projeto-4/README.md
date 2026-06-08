@@ -125,7 +125,7 @@ Esse smoke valida Postgres, MinIO e pipeline com fixture sem sobrescrever os arq
 
 ## Pipeline local
 
-O argumento `--pdf` recebe um caminho local. O pipeline calcula o SHA-256 e faz o parsing a partir dos bytes locais; em seguida, ele salva o PDF bruto, o markdown parseado e a resposta da LLM no MinIO. Caminhos `minio://...` aparecem como artefatos de saída e linhagem, mas não são a entrada principal do orquestrador atual.
+O argumento `--pdf` aceita caminho local ou URI `minio://bucket/objeto.pdf`. O pipeline calcula o SHA-256 e faz o parsing a partir dos bytes do PDF; em seguida, ele salva o PDF bruto, o markdown parseado e a resposta da LLM no MinIO.
 
 Com LLM real:
 
@@ -146,6 +146,18 @@ PYTHONPATH=. python -m services.extractor.run_pipeline \
   --period 1T25 \
   --fixture data/validated/mrv_1t25_fixture_metrics.json \
   --no-persist-raw
+```
+
+Reprocessando a partir de um artefato já salvo no MinIO:
+
+```bash
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf minio://uda-artifacts/raw/MRV/2025/1T25/9f928282d80289aba166bb1800d4443efec8f2815f32240a0e56006bc9f56179.pdf \
+  --company MRV \
+  --period 1T25 \
+  --fixture data/validated/mrv_1t25_fixture_metrics.json \
+  --no-persist-raw \
+  --force
 ```
 
 MRV 3T25, no formato usado para a conjuntura:
@@ -272,4 +284,4 @@ Essa validacao e util para separar duas coisas: o formato do endpoint, que ja re
 PYTHONPATH=. python -m pytest tests -q
 ```
 
-Na última validação local, a suíte retornou `23 passed`.
+Na última validação local, a suíte retornou `27 passed`.

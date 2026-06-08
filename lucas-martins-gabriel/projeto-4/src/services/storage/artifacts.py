@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 SRC_ROOT = Path(__file__).resolve().parents[2]
@@ -12,6 +13,10 @@ DEFAULT_LOCAL_ARTIFACT_DIR = SRC_ROOT / "data" / "artifacts"
 class ArtifactStorage(ABC):
     @abstractmethod
     def put_bytes(self, *, data: bytes, object_name: str, content_type: str | None = None) -> str:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_bytes(self, *, object_name: str) -> bytes:
         raise NotImplementedError
 
     def put_text(self, *, text: str, object_name: str, content_type: str = "text/plain; charset=utf-8") -> str:
@@ -34,6 +39,9 @@ class FilesystemArtifactStorage(ArtifactStorage):
             return str(output_path.relative_to(SRC_ROOT))
         except ValueError:
             return str(output_path)
+
+    def get_bytes(self, *, object_name: str) -> bytes:
+        return (self.base_dir / object_name).read_bytes()
 
 
 class MinioArtifactStorage(ArtifactStorage):
@@ -70,6 +78,23 @@ class MinioArtifactStorage(ArtifactStorage):
         )
         return f"minio://{self.bucket_name}/{object_name}"
 
+    def get_bytes(self, *, object_name: str) -> bytes:
+        response = self.client.get_object(self.bucket_name, object_name)
+        try:
+            return response.read()
+        finally:
+            response.close()
+            response.release_conn()
+
+    def get_uri_bytes(self, uri: str) -> bytes:
+        bucket_name, object_name = parse_minio_uri(uri)
+        response = self.client.get_object(bucket_name, object_name)
+        try:
+            return response.read()
+        finally:
+            response.close()
+            response.release_conn()
+
 
 def get_artifact_storage() -> ArtifactStorage:
     backend = os.getenv("ARTIFACT_STORAGE_BACKEND", "minio").lower()
@@ -88,3 +113,10 @@ def get_artifact_storage() -> ArtifactStorage:
 def artifact_name(*parts: str) -> str:
     cleaned = [part.strip("/").replace(" ", "_") for part in parts if part]
     return "/".join(cleaned)
+
+
+def parse_minio_uri(uri: str) -> tuple[str, str]:
+    parsed = urlparse(uri)
+    if parsed.scheme != "minio" or not parsed.netloc or not parsed.path.strip("/"):
+        raise ValueError("MinIO URI must use format minio://bucket/object")
+    return parsed.netloc, parsed.path.lstrip("/")

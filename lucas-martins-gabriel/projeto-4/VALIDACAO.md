@@ -32,7 +32,7 @@ PYTHONPATH=. .venv/bin/python -m pytest tests -q
 Resultado:
 
 ```text
-23 passed in 5.88s
+27 passed in 5.95s
 ```
 
 ```bash
@@ -49,6 +49,23 @@ chunks=9
 selected_chunks=3
 metrics=3
 fixture_pipeline=ok
+```
+
+Entrada `minio://...` validada no `run_pipeline`:
+
+```bash
+PYTHONPATH=. .venv/bin/python -m services.extractor.run_pipeline \
+  --pdf minio://uda-artifacts/raw/MRV/2025/1T25/9f928282d80289aba166bb1800d4443efec8f2815f32240a0e56006bc9f56179.pdf \
+  --company MRV \
+  --period 1T25 \
+  --fixture data/validated/mrv_1t25_fixture_metrics.json \
+  --no-persist-raw
+```
+
+Resultado:
+
+```text
+skip reason=already_processed hash=9f928282d80289aba166bb1800d4443efec8f2815f32240a0e56006bc9f56179 status=extracted
 ```
 
 API local validada:
