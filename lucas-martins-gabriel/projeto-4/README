@@ -84,7 +84,8 @@ PYTHONPATH=. python -m services.extractor.run_pipeline \
   --pdf data/raw/mrv_1t25.pdf \
   --company MRV \
   --period 1T25 \
-  --fixture data/validated/mrv_1t25_fixture_metrics.json
+  --fixture data/validated/mrv_1t25_fixture_metrics.json \
+  --no-persist-raw
 ```
 
 Segundo layout, Cury 3T25:
@@ -95,7 +96,8 @@ PYTHONPATH=. python -m services.extractor.run_pipeline \
   --company CURY \
   --period 3T25 \
   --source-url https://ri.cury.net/informacoes-aos-investidores/central-de-resultados/ \
-  --fixture data/validated/cury_3t25_fixture_metrics.json
+  --fixture data/validated/cury_3t25_fixture_metrics.json \
+  --no-persist-raw
 ```
 
 ## Polling
@@ -138,3 +140,10 @@ GET /api/conjuntura?empresa=MRV&ano=2025&trimestre=3
 ```
 
 A API de conjuntura calcula percentuais a partir dos valores absolutos gravados no banco. Quando falta histórico para algum comparativo, o campo correspondente retorna `null`.
+
+Exemplos após carregar as fixtures:
+
+```bash
+curl "http://localhost:8000/api/metrics?empresa=CURY&ano=2025&trimestre=3"
+curl "http://localhost:8000/api/conjuntura?ano=2025&trimestre=3"
+```

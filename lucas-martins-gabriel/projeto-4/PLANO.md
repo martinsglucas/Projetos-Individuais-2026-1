@@ -58,12 +58,17 @@ Validação atual:
   - PDF MRV 1T25 parseado em 9 chunks;
   - artefatos bruto, markdown e JSON salvos no MinIO;
   - documento, chunks, run e 3 métricas persistidos no Postgres.
+- Pipeline Cury 3T25 com fixture executado com sucesso no terminal local:
+  - PDF Cury 3T25 parseado em 27 chunks;
+  - artefatos bruto e markdown salvos no MinIO;
+  - documento, chunks, run e 4 métricas persistidos no Postgres;
+  - segundo layout validado de ponta a ponta com fixture.
 - O ambiente Codex atual não consegue acessar o socket Docker nem as portas locais dos containers, então testes integrados com Docker devem ser executados no terminal local do usuário.
 
 Próximos itens críticos:
 
 - processar MRV com LLM real;
-- executar Cury 3T25 pelo pipeline persistente com fixture e depois com LLM real;
+- executar MRV/Cury com LLM real quando quiser validar a chamada externa;
 - completar evidências e README final de submissão.
 
 ## 2. Estado atual do projeto
