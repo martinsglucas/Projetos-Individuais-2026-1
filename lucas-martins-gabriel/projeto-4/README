@@ -157,6 +157,9 @@ A API de conjuntura calcula percentuais a partir dos valores absolutos gravados 
 Exemplos após carregar as fixtures:
 
 ```bash
+curl "http://localhost:8000/api/metrics?empresa=MRV&ano=2025&trimestre=3"
 curl "http://localhost:8000/api/metrics?empresa=CURY&ano=2025&trimestre=3"
 curl "http://localhost:8000/api/conjuntura?ano=2025&trimestre=3"
 ```
+
+Validação integrada já executada para `3T25`: Cury e MRV retornam em `lancamentos` e `vendas`, com totais agregados, linhagem trimestral em `lineage` e linhagem acumulada `9M` em `accumulated_lineage`.

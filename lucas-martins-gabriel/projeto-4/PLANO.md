@@ -75,13 +75,17 @@ Validação atual:
   - percentuais de trimestre anterior, mesmo trimestre do ano anterior e acumulado atual calculados;
   - `missing_history` preserva a ausência de 9M23 para `acumulado_ano_anterior`;
   - lineage trimestral separado de `accumulated_lineage`.
-- O ambiente Codex atual não consegue acessar o socket Docker nem as portas locais dos containers, então testes integrados com Docker devem ser executados no terminal local do usuário.
+- MRV 3T25 descoberta pela fonte oficial MZIQ da central de resultados:
+  - PDF baixado e parseado em 18 chunks;
+  - tentativa com Gemini real chegou à extração, mas retornou `503 UNAVAILABLE` por alta demanda temporária do modelo;
+  - fixture reprodutível criada a partir do markdown parseado com 12 métricas;
+  - pipeline com fixture persistiu 12 métricas e selecionou 5 chunks;
+  - `/api/conjuntura?ano=2025&trimestre=3` retornou Cury e MRV, com totais agregados e `accumulated_lineage`.
+- O ambiente Codex consegue acessar Docker/serviços locais mediante aprovação; comandos integrados devem ser rodados com essa permissão quando necessário.
 
 Próximos itens críticos:
 
-- processar MRV com LLM real;
-- executar MRV/Cury com LLM real quando quiser validar a chamada externa;
-- reprocessar Cury 3T25 com `--force` para atualizar o banco com os valores históricos da fixture expandida;
+- repetir a extração MRV/Cury com LLM real quando o Gemini não estiver retornando `503`;
 - carregar mais histórico ou acumulados para obter todos os percentuais do boletim em vez de `null`;
 - completar evidências e README final de submissão.
 

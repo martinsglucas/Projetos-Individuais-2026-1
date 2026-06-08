@@ -1,0 +1,291 @@
+{
+  "company": "MRV",
+  "period": {
+    "year": 2025,
+    "quarter": 3
+  },
+  "report_type": "operational_preview",
+  "metrics": [
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 43600,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.9,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "LAND BANK | VGV (R$ bilhoes) | 3T25 | 43,6, convertido para R$ milhoes",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2355,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "LANCAMENTOS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 3T25 | 2.355",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 2
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 3449,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "LANCAMENTOS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 2T25 | 3.449",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2599,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "LANCAMENTOS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 3T24 | 2.599",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 8692,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "LANCAMENTOS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 9M25 | 8.692",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 6429,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "LANCAMENTOS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 9M24 | 6.429",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2445,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 3T25 | 2.445",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 2
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2685,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 2T25 | 2.685",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2458,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 3T24 | 2.458",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 7297,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 9M25 | 7.297",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2024,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV acumulado",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 7128,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "is_estimated": false,
+      "confidence": 0.95,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "VENDAS | TOTAL INCORPORACAO | VGV (R$ milhoes) | 9M24 | 7.128",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "production",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 10966,
+      "unit": "units",
+      "currency": null,
+      "scale": "unit",
+      "is_estimated": false,
+      "confidence": 0.9,
+      "evidence": {
+        "page_number": null,
+        "chunk_id": null,
+        "heading": "DADOS OPERACIONAIS",
+        "raw_text": "PRODUCAO | Unidades | 3T25 | 10.966",
+        "table_label": "Indicadores Operacionais (%MRV)"
+      }
+    }
+  ],
+  "missing_relevant_fields": [],
+  "extraction_notes": [
+    "Fixture manual extraida do markdown parseado de MRV 3T25 para validar o pipeline sem depender da disponibilidade momentanea da LLM.",
+    "Valores de land bank em R$ bilhoes foram convertidos para R$ milhoes."
+  ]
+}

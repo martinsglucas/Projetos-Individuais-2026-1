@@ -1,9 +1,22 @@
+import json
 from decimal import Decimal
+from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
 
-from contracts import CompanyCode, ExtractedMetric, MetricCategory, MetricUnit, Period, SourceEvidence
+from contracts import (
+    CompanyCode,
+    ExtractedMetric,
+    LLMMetricExtractionResponse,
+    MetricCategory,
+    MetricUnit,
+    Period,
+    SourceEvidence,
+)
+
+
+SRC_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_period_from_label() -> None:
@@ -39,3 +52,15 @@ def test_missing_value_cannot_have_high_confidence() -> None:
             confidence=Decimal("0.95"),
             evidence=SourceEvidence(raw_text="Valor ausente"),
         )
+
+
+def test_mrv_3t25_fixture_matches_llm_contract() -> None:
+    fixture_path = SRC_ROOT / "data" / "validated" / "mrv_3t25_fixture_metrics.json"
+    payload = json.loads(fixture_path.read_text(encoding="utf-8"))
+
+    response = LLMMetricExtractionResponse.model_validate(payload)
+
+    assert response.company == CompanyCode.MRV
+    assert response.period == Period.from_label("3T25")
+    assert len(response.metrics) == 12
+    assert any(metric.metric_name == "VGV acumulado" for metric in response.metrics)
