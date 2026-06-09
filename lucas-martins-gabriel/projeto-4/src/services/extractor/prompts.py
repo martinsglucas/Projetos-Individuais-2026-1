@@ -20,6 +20,8 @@ Regras obrigatorias:
 - Converta virgula decimal brasileira para ponto decimal no JSON.
 - Mantenha pontos de milhares fora dos numeros. Exemplo: "2.167" em R$ milhoes significa 2167.
 - Use units para unidades, BRL_million para R$ milhoes, BRL_billion para R$ bilhoes, percent para %, percentage_points para p.p.
+- Quando a tabela trouxer total consolidado e segmentos abertos, extraia o total consolidado e nao repita os subsegmentos para a mesma metrica.
+- Para MRV, prefira TOTAL INCORPORACAO quando existir; para Cury, prefira TOTAL ou a linha principal da tabela.
 """
 
 TARGET_METRICS = """\

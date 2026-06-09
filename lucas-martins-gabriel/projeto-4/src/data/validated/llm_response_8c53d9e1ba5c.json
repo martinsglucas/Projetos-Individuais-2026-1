@@ -1,0 +1,766 @@
+{
+  "company": "MRV",
+  "period": {
+    "year": 2025,
+    "quarter": 3
+  },
+  "report_type": "operational_preview",
+  "metrics": [
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 43.6,
+      "unit": "BRL_billion",
+      "currency": "BRL",
+      "scale": "billion",
+      "evidence": {
+        "raw_text": "VGV (R$ bilhoes)                  | 43,6   | 43,9   | 44,6   | 0,5% ↓                    | 2,1% ↓                    | 43,6   | 44,6   | 2,1% ↓             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2355,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 2.355  | 3.449  | 2.599  | 31,7% ↓                   | 9,4% ↓                    | 8.692  | 6.429  | 35,2% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 8354,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 8.354  | 12.252 | 10.355 | 31,8%                     | 19,3%                     | 31.443 | 26.121 | 20,4% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "MRV",
+      "value": 2115,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 2.115  | 3.247  | 2.522  | 34,9% ↓                   | 16,1% ↓                   | 8.108  | 6.293  | 28,8%              |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "MRV",
+      "value": 7874,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 7.874  | 11.973 | 10.266 | 34,2% ↓                   | 23,3% ↓                   | 30.393 | 25.896 | 17,4% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "SENSIA",
+      "value": 240,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 240    | 202    | 77     | 19,0% ↑                   | 211,1% ↑                  | 584    | 136    | 329,5% ↑           |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "SENSIA",
+      "value": 480,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 480    | 279    | 88     | 71,7% ↑                   | 444,1% ↑                  | 1.050  | 224    | 368,5% ↑           |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 2445,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 2.445  | 2.685  | 2.458  | 8,9% ↓                    | 0,5% ↓                    | 7.297  | 7.128  | 2,4% ↑             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 8779,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 8.779  | 9.927  | 9.715  | 11,6% ↓                   | 9,6% ↓                    | 27.084 | 28.408 | 4,7% ↓             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 278,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 278    | 270    | 253    | 3,0% ↑                    | 10,0% ↑                   | 269    | 251    | 7,4% t             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "MRV",
+      "value": 2276,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 2.276  | 2.559  | 2.327  | 11,1% ↓                   | 2,2% ↓                    | 6.835  | 6.762  | 1,1% ↑             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "MRV",
+      "value": 8480,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 8.480  | 9.721  | 9.499  | 12,8% ↓                   | 10,7% ↓                   | 26.270 | 27.794 | 5,5% ↓             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "MRV",
+      "value": 268,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 268    | 263    | 245    | 1,9% ↑                    | 9,5% ↑                    | 260    | 243    | 6,9% ↑             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "SENSIA",
+      "value": 169,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 169    | 126    | 131    | 34,9% ↑                   | 28,9% ↑                   | 462    | 367    | 26,1% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "SENSIA",
+      "value": 299,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 299    | 206    | 215    | 45,1% ↑                   | 39,2% ↑                   | 814    | 614    | 32,5% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "SENSIA",
+      "value": 565,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 565    | 608    | 611    | 7,0% ↓                    | 7,4% ↓                    | 568    | 597    | 4,8% ↓             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "vso",
+      "metric_name": "VSO LiQUIDA",
+      "segment": "Lancamentopormodulos",
+      "value": 0.226,
+      "unit": "percent",
+      "evidence": {
+        "raw_text": "Lancamentopormodulos              | 22,6%  | 24,4%  | 32,3%  | 1,9 p.p. ↓                | 9,8 p.p. ↓                | 46,6%  | 63,2%  | 16,6 p.p. ↓        |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "transfers",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 8885,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 8.885  | 9.023  | 8.791  | 1,5% ↓                    | 1,1% ↑                    | 25.088 | 25.053 | 0,1% ↑             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "financing",
+      "metric_name": "Unidades",
+      "segment": "VENDASCOM FINANCIAMENTO DIRETO",
+      "value": 962,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 962    | 914    | 916    | 5,3% ↑                    | 5,0% ↑                    | 2.530  | 3.114  | 18,8% ↓            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "production",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 10966,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 10.966 | 9.872  | 9.668  | 11,1% ↑                   | 13,4% ↑                   | 30.292 | 26.612 | 13,8% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracao de Caixa MRV",
+      "segment": "MRV Incorporacao",
+      "value": 10669,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "(=) GeracaodeCaixaMRV(exSWAPeCRI MRVUS)                   | 10.669   | (35.902) | (50.785)  |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracao de Caixa MRV Ajustada (ex Cessao de Carteira)",
+      "segment": "MRV Incorporacao",
+      "value": -313,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "(=) Geracao de Caixa MRV Ajustada (ex Cessao de Carteira) | (313)    | (82.914) | (127.671) |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracaode CaixaMRV IncorporacaoAjustada",
+      "segment": "MRV Incorporacao",
+      "value": 123393,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Geracaode CaixaMRV IncorporacaoAjustada                   | 123.393  | (38.247) | (127.399) |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "LUGGO",
+      "value": 2.5,
+      "unit": "BRL_billion",
+      "currency": "BRL",
+      "scale": "billion",
+      "evidence": {
+        "raw_text": "VGV (R$ bilhoes)                  | 2,5    | 2,1    | 2,1    | 21,3% ↑   | 21,5% ↑                        | 2,5    | 2,1    | 21,5% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "Unidades",
+      "segment": "LUGGO",
+      "value": 15247,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 15.247 | 13.941 | 14.656 | 9,4% ↑   | 4,0% ↑                         | 15.247 | 14.656 | 4,0% ↑             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "Ticket Médio",
+      "segment": "LUGGO",
+      "value": 164,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 164    | 148    | 141    | 10,9% ↑  | 16,8% ↑                        | 164    | 141    | 16,8% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "LUGGO",
+      "value": 74,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 74,0   | 102,2  | 168,6  | 27,6% ↓  | 56,1% ↓                        | 176,2  | 168,6  | 4,5% ↑             |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "LUGGO",
+      "value": 398,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 398    | 598    | 1.295  | 33,4% ↓  | 69,3% ↓                        | 966    | 1.295  | 23,1% ↓            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "Ticket Médio",
+      "segment": "LUGGO",
+      "value": 186,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 186    | 171    | 130    | 8,7% ↑   | 42,8% ↑                        | 177    | 130    | 36,0% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "LUGGO",
+      "value": 88,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhoes)                  | 88     | 39     | 38     | 128,9% ↑ | 133,1% ↑                       | 154    | 64     | 139,3% ↑           |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "LUGGO",
+      "value": 595,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades                          | 595    | 240    | 317    | 148,3% ↑ | 87,7% ↑                        | 1.040  | 498    | 109,1% ↑           |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Ticket Médio",
+      "segment": "LUGGO",
+      "value": 149,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Ticket Médio (R$ mil)             | 149    | 161    | 120    | 7,8% ↓   | 24,2% ↑                        | 148    | 129    | 14,4% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "GERACAO DE CAIXA",
+      "segment": "LUGGO",
+      "value": -20.4,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "GERACAO DE CAIXA (R$ milhoes)   | (20,4) | (30,3) | 11,3   | 32,5% ↑                          | (45,6) | 7,9    |                    |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "LUGGO",
+      "value": 30,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (US$ milhoes)                            | 30     | 68     | 111    | 55,3% ↓ | 72,8% ↓                       | 98     | 111     | 11,8% ↓            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "production",
+      "metric_name": "Unidades",
+      "segment": "LUGGO",
+      "value": 68,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "PRODUCAO Unidades                            | 68     | 68     | 143    | 0,0% ↑  | 52,7% ↓                       | 217    | 445     | 51,3% ↓            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Geracao de Caixa Holding",
+      "segment": "LUGGO",
+      "value": 28.1,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Geracao de Caixa Holding                     | 28,1   | 54,9   | 70,4   | 48,8% ↓ | 60,1% ↓                       | 77,3   | 45,4    | 70,3% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Venda de ativos",
+      "segment": "LUGGO",
+      "value": 32.4,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Venda de ativos                              | 32,4   | 59,6   | 81,9   | 45,7% ↓ | 60,5% ↓                       | 91,9   | 81,9    | 12,2%              |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "G&A",
+      "segment": "LUGGO",
+      "value": -4.2,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "G&A                                          | (4,2)  | (4,6)  | (11,5) | 8,3% ↑  | 63,2% ↑                       | (14,6) | (36,5)  | 60,0% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Investimento em Projetos",
+      "segment": "LUGGO",
+      "value": -24.6,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Investimento em Projetos                     | (24,6) | (15,2) | (48,2) | 62,2% ↓ | 49,0%                         | (92,5) | (138,0) | 33,0% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Investimentos em construcao",
+      "segment": "LUGGO",
+      "value": -9.1,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Investimentos em construcao                  | (9,1)  | (16,4) | (30,9) | 44,7% ↑ | 70,6% ↑                       | (42,5) | (84,3)  | 49,7% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Novos Projetos",
+      "segment": "LUGGO",
+      "value": -4.4,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Novos Projetos                               | (4,4)  | 8,4    | (9,0)  |         | 51,2% ↑                       | (17,4) | (31,8)  | 45,1% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Resultado liquido com gestao de propriedades",
+      "segment": "LUGGO",
+      "value": -1.9,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Resultado liquido com gestao de propriedades | (1,9)  | 2,2    |        |         |                               | (5,4)  | 2,4     |                    |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Despesa Financeira",
+      "segment": "LUGGO",
+      "value": -9.3,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Despesa Financeira                           | (9,3)  | (E'6)  | (8,3)  | 0,7% ↑  | 11,2% ↓                       | (27,2) | (24,3)  | 12,0%              |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "GERACAO DE CAIXA RESIA",
+      "segment": "LUGGO",
+      "value": 3.5,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "GERACAO DE CAIXA RESIA (US$ milhoes)         | 3,5    | 39,8   | 22,3   | 91,1% ↓ | 84,1% ↓                       | (15,2) | (92,6)  | 83,6% ↑            |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "Despesa Financeira",
+      "segment": "LUGGO",
+      "value": -5.0,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Despesa Financeira (MRV US)                  | (5,0)  | (5,6)  | (2,6)  | 9,8% ↑  | 97,1% ↓                       | (16,4) | (7,4)   | 122,0% ↓           |"
+      }
+    },
+    {
+      "company": "MRV",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "cash_generation",
+      "metric_name": "GERACAO DE CAIXA MRV",
+      "segment": "LUGGO",
+      "value": -1.5,
+      "unit": "USD_million",
+      "currency": "USD",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "GERACAO DE CAIXA MRV (US$ milhoes)           | (1,5)  | 34,2   | 19,7   |         |                               | (31,6) | (100,0) | 68,4%              |"
+      }
+    }
+  ],
+  "missing_relevant_fields": [],
+  "extraction_notes": []
+}

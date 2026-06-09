@@ -56,6 +56,7 @@ def run_extraction(
     model_name: str,
     fixture_path: Path | None = None,
     persist_raw: bool = True,
+    dry_run: bool = False,
 ) -> None:
     repo = UdaRepository()
     storage = get_artifact_storage()
@@ -89,6 +90,8 @@ def run_extraction(
         try:
             result = GeminiProvider(model_name=model_name).extract(prompt)
         except Exception as exc:
+            if dry_run:
+                raise
             finished_at = datetime.utcnow()
             failed_run = ExtractionRun(
                 document_hash=document_hash,
@@ -113,7 +116,7 @@ def run_extraction(
         status = "succeeded"
         finished_at = datetime.utcnow()
 
-    if persist_raw:
+    if persist_raw and not dry_run:
         raw_response_path = write_raw_response(document_hash, raw_text)
         raw_response_storage_path = storage.put_text(
             text=raw_text,
@@ -128,6 +131,15 @@ def run_extraction(
         )
     else:
         raw_response_storage_path = None
+
+    if dry_run:
+        print(f"document_hash={document_hash}")
+        print(f"selected_chunks={len(selected_chunks)}")
+        print(f"provider={provider}")
+        print(f"model={actual_model_name}")
+        print(f"metrics={len(parsed.metrics)}")
+        print("dry_run=ok")
+        return
 
     run = ExtractionRun(
         document_hash=document_hash,
@@ -174,6 +186,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", default="gemini-2.5-flash")
     parser.add_argument("--fixture", default=None, help="Path to a JSON fixture with LLMMetricExtractionResponse shape.")
     parser.add_argument("--no-persist-raw", action="store_true")
+    parser.add_argument("--dry-run", action="store_true", help="Validate extraction without writing runs or metrics.")
     return parser.parse_args()
 
 
@@ -186,6 +199,7 @@ def main() -> None:
         model_name=args.model,
         fixture_path=fixture_path,
         persist_raw=not args.no_persist_raw,
+        dry_run=args.dry_run,
     )
 
 

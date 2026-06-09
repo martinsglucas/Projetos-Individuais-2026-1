@@ -55,7 +55,7 @@ Implementado nesta branch:
 
 Validação atual:
 
-- `pytest`: 28 testes passaram.
+- `pytest`: 29 testes passaram.
 - Smoke integrado com Postgres, MinIO e fixture MRV 1T25 executado com sucesso no terminal local:
   - `postgres=ok`;
   - `schema=ok`;
@@ -86,12 +86,17 @@ Validação atual:
   - fixture reprodutível criada a partir do markdown parseado com 12 métricas;
   - pipeline com fixture persistiu 12 métricas e selecionou 5 chunks;
   - `/api/conjuntura?ano=2025&trimestre=3` retornou Cury e MRV, com totais agregados e `accumulated_lineage`.
+- Reprocessamento com LLM real:
+  - dry-run Gemini real validou Cury 3T25 com 12 métricas;
+  - dry-run Gemini real validou MRV 3T25 com 46 métricas;
+  - ambas as chamadas usaram fallback para `gemini-2.5-flash-lite`;
+  - respostas brutas foram salvas em `data/validated/llm_response_074a3966dc45.json` e `data/validated/llm_response_8c53d9e1ba5c.json`;
+  - as métricas finais do endpoint foram restauradas para fixtures porque a LLM real não modelou colunas históricas como períodos separados.
 - O ambiente Codex consegue acessar Docker/serviços locais mediante aprovação; comandos integrados devem ser rodados com essa permissão quando necessário.
 
 Próximos itens críticos:
 
-- repetir a extração MRV/Cury com LLM real quando o Gemini `flash` não estiver retornando `503`, ou usar `flash-lite` com fallback;
-- opcionalmente carregar mais histórico para calcular `acumulado_ano_anterior_pct`, que hoje retorna `null` quando faltam dados `9M23`;
+- opcionalmente carregar mais histórico para calcular `acumulado_ano_anterior_pct`, que hoje retorna `null` quando faltam dados `9M23`; não é prioridade para a entrega atual porque exige padronizar o mesmo recorte usado pelo boletim oficial;
 - investigar divergências numéricas contra o boletim real quando o boletim usar recortes diferentes dos PDFs de empresa processados;
 - revisar a submissão/PR final.
 

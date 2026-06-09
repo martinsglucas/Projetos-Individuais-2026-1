@@ -1,0 +1,204 @@
+{
+  "company": "CURY",
+  "period": {
+    "year": 2025,
+    "quarter": 3
+  },
+  "report_type": "operational_preview",
+  "metrics": [
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 1986.4,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "VGV (R$ milhões)             | 1.986,4 | 2.225,3 | -10,7%    | 1.560,7* | 27,3%     | 6.995,2 | 5.179,7* | 35,0%    |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 6813,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Número de Unidades           | 6.813   | 6.588   | 3,4%      | 5.157    | 32,1%     | 22.533  | 16.704   | 34,9%    |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "launches",
+      "metric_name": "Ticket Medio",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 291.6,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Preço Médio/Unid. (R$ mil)   | 291,6   | 337,8   | -13,7%    | 302,6*   | -3,6%     | 310,4   | 310,1*   | 0,1%     |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 1827.0,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Vendas Líquidas (R$ milhões VGV)            | 1.827,0 | 2.261,4 | -19,2%    | 1.437,2 | 27,1%     | 6.194,0 | 4.738,5 | 30,7%     |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 6847,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Número de Unidades                          | 6.847   | 8.067   | -15,1%    | 5.191   | 31,9%     | 22.087  | 17.327  | 27,5%     |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "sales",
+      "metric_name": "Ticket Medio",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 299.7,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Preço Médio/Unid. (R$ mil)                  | 299,7   | 309,7   | -3,2%     | 306,3   | -2,2%     | 306,8   | 299,9   | 2,3%      |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "transfers",
+      "metric_name": "Repasses Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 5101,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades Repassadas        | 5.101   | 7.155   | -28,7%  | 4.756   | 7,3%    | 16.039  | 12.959*  | 23,8%   |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "production",
+      "metric_name": "Producao Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 4908,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Unidades Produzidas |  4.908 |  4.046 | 21,3%  |  4.168 | 17,8%  | 12.317 | 10.794 | 14,1%  |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "vso",
+      "metric_name": "VSO Liquida",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 40.6,
+      "unit": "percent",
+      "evidence": {
+        "raw_text": "VSO Líquida (%)                             | 40,6%   | 47,5%   | -6,9 p.p. | 43,9%   | -3,3 p.p. | 69,8%   | 72,0%   | -2,2 p.p. |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "VGV",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 23344.2,
+      "unit": "BRL_million",
+      "currency": "BRL",
+      "scale": "million",
+      "evidence": {
+        "raw_text": "Banco de Terrenos (VGV, R$ milhões) | 23.344,2 | 21.114,4 | 10,6%   | 19.517,0 | 19,6%   |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "Unidades",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 79193,
+      "unit": "units",
+      "evidence": {
+        "raw_text": "Número de Unidades                  | 79.193   | 72.928   | 8,6%    | 67.118   | 18,0%   |"
+      }
+    },
+    {
+      "company": "CURY",
+      "period": {
+        "year": 2025,
+        "quarter": 3
+      },
+      "category": "landbank",
+      "metric_name": "Ticket Medio",
+      "segment": "TOTAL INCORPORACAO",
+      "value": 294.8,
+      "unit": "BRL_thousand",
+      "currency": "BRL",
+      "scale": "thousand",
+      "evidence": {
+        "raw_text": "Preço Médio/Unid. (R$ mil)          | 294,8    | 289,5    | 1,8%    | 290,8    | 1,4%    |"
+      }
+    }
+  ],
+  "missing_relevant_fields": [],
+  "extraction_notes": []
+}

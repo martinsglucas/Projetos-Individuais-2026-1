@@ -32,7 +32,7 @@ PYTHONPATH=. .venv/bin/python -m pytest tests -q
 Resultado:
 
 ```text
-28 passed in 6.15s
+29 passed in 7.55s
 ```
 
 ```bash
@@ -98,8 +98,44 @@ checked=16 diffs=14
 
 Essa auditoria confirma que o endpoint tem o formato do boletim, mas tambem explicita divergencias numericas quando as fixtures usam os valores absolutos dos PDFs processados e o boletim oficial usa outro recorte/segmento ou historico ainda nao carregado.
 
+Reprocessamento com LLM real:
+
+```bash
+PYTHONPATH=. .venv/bin/python -m services.extractor.extract_metrics \
+  --pdf-hash 074a3966dc4594d5e3e49d6705e44954788b98d9d425cfde1910e01d9d5c7cd8 \
+  --model gemini-2.5-flash \
+  --dry-run \
+  --no-persist-raw
+```
+
+Resultado Cury:
+
+```text
+provider=gemini
+model=gemini-2.5-flash-lite
+metrics=12
+dry_run=ok
+```
+
+Resultado MRV:
+
+```text
+provider=gemini
+model=gemini-2.5-flash-lite
+metrics=46
+dry_run=ok
+```
+
+As respostas reais tambem foram persistidas como artefatos em MinIO e versionadas localmente em:
+
+- `src/data/validated/llm_response_074a3966dc45.json`;
+- `src/data/validated/llm_response_8c53d9e1ba5c.json`.
+
+Depois do teste real, a base final da API foi restaurada com fixtures validadas, pois a LLM real extraiu valores do periodo-alvo, mas nao transformou colunas historicas (`2T25`, `3T24`, `9M25`, `9M24`) em metricas com periodos separados.
+
 ## Ressalvas
 
 - A ultima tentativa de extracao MRV 3T25 com Gemini real chegou ate a chamada de LLM, mas retornou `503 UNAVAILABLE` por alta demanda temporaria do modelo. O pipeline real esta implementado; para reproducibilidade da entrega, as fixtures versionadas validam o mesmo contrato Pydantic esperado da LLM.
 - `acumulado_ano_anterior_pct` retorna `null` quando faltam dados historicos `9M23`; o endpoint explicita isso em `missing_history`, em vez de inventar valores.
 - A comparacao numerica com o boletim oficial ainda nao e criterio de igualdade perfeita; para isso, seria necessario carregar o mesmo historico e padronizar o mesmo recorte empresarial usado no boletim.
+- Coleta de historico adicional nao foi priorizada nesta etapa porque o ganho principal seria preencher `9M23`; para bater exatamente o boletim, tambem seria necessario confirmar o mesmo recorte empresarial usado pelo PDF oficial.

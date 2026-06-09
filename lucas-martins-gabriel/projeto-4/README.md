@@ -115,6 +115,16 @@ export GEMINI_MAX_ATTEMPTS=2
 
 O contrato Pydantic continua sendo o filtro de qualidade. Aliases seguros de unidade retornados pela LLM, como `BRL_thousand`, sao normalizados para o enum aceito `thousand_BRL`; respostas fora do contrato continuam falhando e ficam registradas como execucao com status `failed`.
 
+Para validar uma chamada real sem alterar métricas persistidas:
+
+```bash
+PYTHONPATH=. python -m services.extractor.extract_metrics \
+  --pdf-hash 074a3966dc4594d5e3e49d6705e44954788b98d9d425cfde1910e01d9d5c7cd8 \
+  --model gemini-2.5-flash \
+  --dry-run \
+  --no-persist-raw
+```
+
 Smoke integrado com Postgres, MinIO e fixture offline:
 
 ```bash
@@ -278,10 +288,12 @@ PYTHONPATH=. python scripts/validate_conjuntura_against_boletim.py --strict
 
 Essa validacao e util para separar duas coisas: o formato do endpoint, que ja reproduz os blocos de `lancamentos` e `vendas`, e a aderencia numerica ao boletim oficial. Divergencias podem ocorrer quando o PDF da empresa usa recortes diferentes dos usados no boletim, por exemplo `TOTAL INCORPORACAO`, `MRV`, `Parte Cury` ou valores reapresentados.
 
+Na validação atual, a chamada real com Gemini funcionou com fallback para `gemini-2.5-flash-lite`, mas a resposta da LLM modelou apenas o período-alvo `3T25` e não converteu as colunas históricas (`2T25`, `3T24`, `9M25`, `9M24`) em métricas separadas. Por isso, a base final usada pelo endpoint de conjuntura permanece nas fixtures validadas, que preservam a modelagem temporal necessária para calcular os percentuais.
+
 ## Testes
 
 ```bash
 PYTHONPATH=. python -m pytest tests -q
 ```
 
-Na última validação local, a suíte retornou `28 passed`.
+Na última validação local, a suíte retornou `29 passed`.
