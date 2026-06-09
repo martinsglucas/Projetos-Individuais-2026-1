@@ -75,6 +75,53 @@ Para desenvolvimento sem MinIO, use:
 export ARTIFACT_STORAGE_BACKEND=filesystem
 ```
 
+## Roteiro rápido de reprodução
+
+Depois do setup local, este é o caminho mais curto para reproduzir a entrega com dados determinísticos:
+
+```bash
+cd lucas-martins-gabriel/projeto-4/src
+source .venv/bin/activate
+docker compose up -d
+docker compose exec -T postgres psql -U admin -d uda < db/001_initial_schema.sql
+```
+
+Carregar os dois layouts usados na conjuntura `3T25`:
+
+```bash
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/mrv_3t25.pdf \
+  --company MRV \
+  --period 3T25 \
+  --source-url "https://api.mziq.com/mzfilemanager/v2/d/4b56353d-d5d9-435f-bf63-dcbf0a6c25d5/2c084655-23f7-7c55-5ac7-f4b2ed930448?origin=2" \
+  --fixture data/validated/mrv_3t25_fixture_metrics.json \
+  --no-persist-raw \
+  --force
+
+PYTHONPATH=. python -m services.extractor.run_pipeline \
+  --pdf data/raw/cury_3t25.pdf \
+  --company CURY \
+  --period 3T25 \
+  --source-url https://ri.cury.net/informacoes-aos-investidores/central-de-resultados/ \
+  --fixture data/validated/cury_3t25_fixture_metrics.json \
+  --no-persist-raw \
+  --force
+```
+
+Subir a API e consultar o endpoint principal:
+
+```bash
+PYTHONPATH=. uvicorn services.api.main:app --reload --port 8000
+curl "http://localhost:8000/api/conjuntura?ano=2025&trimestre=3"
+```
+
+Validações finais:
+
+```bash
+PYTHONPATH=. python -m pytest tests -q
+PYTHONPATH=. python scripts/validate_conjuntura_against_boletim.py
+```
+
 ## MinIO
 
 O MinIO e usado como storage de artefatos do pipeline. O bucket padrao e `uda-artifacts`, criado automaticamente quando o storage e inicializado.
